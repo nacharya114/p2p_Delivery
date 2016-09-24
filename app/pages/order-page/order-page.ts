@@ -18,5 +18,6 @@ export class OrderPagePage {
   }
   goToOrderNew(){
     this.navCtrl.push(OrderNewPage);
+    console.log("works");
   }
 }
