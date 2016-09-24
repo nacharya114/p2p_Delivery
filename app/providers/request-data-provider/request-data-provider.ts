@@ -15,28 +15,39 @@ export class RequestDataProvider {
   constructor(private http: Http) {}
 
   saveOrder(id: number) {
-
+      return new Promise((resolve, reject) => {
+          resolve();
+      });
   }
 
   getOrder(id: number) {
-
+      return new Promise((resolve, reject) => {
+          resolve();
+      });
   }
 
   createOrder() {
-
+      return new Promise((resolve, reject) => {
+          resolve();
+      });
   }
 
   getOrders(complete: boolean) {
-
+     return new Promise((resolve, reject) => {
+          resolve();
+      });
   }
 
   getTrackingOrders() {
-
+        return new Promise((resolve, reject) => {
+          resolve();
+      });
   }
 
   getCompletedOrders() {
-
-      url: param: completed=true
+      return new Promise((resolve, reject) => {
+          resolve();
+      });
   }
 
 }
