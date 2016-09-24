@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
-import { OrderPagePage } from '../order-page/order-page';
 
 /*
   Generated class for the HistoryPagePage page.
@@ -15,12 +14,6 @@ export class HistoryPagePage {
 
   constructor(private navCtrl: NavController) {
 
-  }
-
-  itemTapped(event, item) {
-    this.navCtrl.push(OrderPagePage, {
-      item: item
-    });
   }
 
 }

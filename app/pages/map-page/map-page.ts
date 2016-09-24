@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
+import { HistoryPagePage } from '../history-page/history-page';
 
 /*
   Generated class for the MapPagePage page.
@@ -12,7 +13,7 @@ import { NavController } from 'ionic-angular';
 })
 export class MapPagePage {
 
-  constructor(private navCtrl: NavController) {
+  constructor(private navCtrl: NavController, private nav: NavController) {
 
   }
 
