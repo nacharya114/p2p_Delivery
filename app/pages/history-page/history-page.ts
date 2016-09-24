@@ -15,6 +15,10 @@ export class HistoryPagePage {
   constructor(private navCtrl: NavController) {
 
   }
+  goToHistory(){
+    this.navCtrl.push(HistoryPagePage);
+    //TODO
+  }
 
 }
 

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
-import { HistoryPagePage } from '../history-page/history-page';
+import { OrderNewPage } from '../order-new/order-new';
 
 /*
   Generated class for the OrderPagePage page.
@@ -16,7 +16,7 @@ export class OrderPagePage {
   constructor(private navCtrl: NavController) {
     console.log("testing");
   }
-  goToHistory(){
-    this.navCtrl.push(HistoryPagePage);
+  goToOrderNew(){
+    this.navCtrl.push(OrderNewPage);
   }
 }
