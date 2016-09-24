@@ -2,26 +2,18 @@ import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 
 /*
-  Generated class for the HistoryPagePage page.
+  Generated class for the PackageTypePage page.
 
   See http://ionicframework.com/docs/v2/components/#navigation for more info on
   Ionic pages and navigation.
 */
 @Component({
-  templateUrl: 'build/pages/history-page/history-page.html',
+  templateUrl: 'build/pages/package-type/package-type.html',
 })
-export class HistoryPagePage {
+export class PackageTypePage {
 
   constructor(private navCtrl: NavController) {
 
   }
-  goToHistory(){
-    this.navCtrl.push(HistoryPagePage);
-    //TODO
-  }
 
 }
-
-
-
-
