@@ -19,4 +19,9 @@ export class OrderNewPage {
   goToPackageType(){
     this.navCtrl.push(PackageTypePage);
   }
+
+  Submit(){
+      this.navCtrl.pop();
+      //TODO: save information and somehow send to tracking
+    }
 }
