@@ -11,6 +11,7 @@ import { PackageTypePage } from '../package-type/package-type';
 @Component({
   templateUrl: 'build/pages/order-new/order-new.html',
 })
+
 export class OrderNewPage {
 
   @ViewChild("name") nameTxt: ElementRef;
@@ -18,8 +19,14 @@ export class OrderNewPage {
   @ViewChild("destination") destinationTxt: ElementRef;
   @ViewChild("notes") notesTxt: ElementRef;
 
+  formData: any;
+
   constructor(private navCtrl: NavController, navPar: NavParams) {
 
+    this.formData = {
+        name: "",
+        location: "",
+    };
   }
   goToPackageType(){
     this.navCtrl.push(PackageTypePage);
@@ -27,6 +34,8 @@ export class OrderNewPage {
 
   Submit(){
       this.navCtrl.pop();
+      console.log("hi");
+      console.log(this.formData);
       //TODO: save information and somehow send to tracking
     }
 }
