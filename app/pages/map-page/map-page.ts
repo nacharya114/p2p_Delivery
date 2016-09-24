@@ -2,6 +2,7 @@ import { Component, ViewChild, ElementRef } from '@angular/core';
 import { NavController, Platform, Page } from 'ionic-angular';
 import { HistoryPagePage } from '../history-page/history-page';
 import { Geolocation } from 'ionic-native';
+import {GoogleMap, GoogleMapsEvent} from "ionic-native";
 
 
 /*
@@ -23,25 +24,35 @@ export class MapPagePage {
 
   constructor(public navCtrl: NavController, private platform: Platform) {
     this.platform = platform;
-    this.initializeMap();
+    //this.initializeMap();
   }
 
   ionViewLoaded(){
     console.log("loaded view");
-    //this.loadMap();
+    console.log(google.maps);
+    this.loadMap();
   }
-
+/**
   initializeMap() {
     this.platform.ready().then(() => {
         var minZoomLevel = 12;
 
 
-        this.map = new google.maps.Map(document.getElementById('map'), {
-            zoom: minZoomLevel,
-            center: new google.maps.LatLng(38.50, -90.50),
-            mapTypeId: google.maps.MapTypeId.ROADMAP
-        });
+        this.map = new GoogleMap('map');
+        this.map.on(GoogleMapsEvent.MAP_READY).subscribe(() => console.log("Map is ready!"));
+        this.map.setVisible(true);
     });
+  }
+  **/
+
+
+  loadMap() {
+    var uluru = {lat: -25.363, lng: 131.044};
+    console.log("map is here");
+    let map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 4,
+          center: uluru
+        });
   }
 
     /**
