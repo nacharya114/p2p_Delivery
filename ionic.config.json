@@ -1,4 +1,6 @@
 {
   "name": "p2p",
-  "app_id": ""
+  "app_id": "",
+  "v2": true,
+  "typescript": true
 }
