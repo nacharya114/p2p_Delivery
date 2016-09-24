@@ -47,12 +47,29 @@ export class MapPagePage {
 
 
   loadMap() {
+  /**
     var uluru = {lat: -25.363, lng: 131.044};
     console.log("map is here");
     let map = new google.maps.Map(document.getElementById('map'), {
           zoom: 4,
           center: uluru
         });
+        **/
+
+    Geolocation.getCurrentPosition().then((position) => {
+      console.log(position);
+      let latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+
+      let mapOptions = {
+        center: latLng,
+        zoom: 15,
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+      }
+
+      let map = new google.maps.Map(document.getElementById('map'), mapOptions);
+    }, (err) => {
+        console.log(err);
+    });
   }
 
     /**
