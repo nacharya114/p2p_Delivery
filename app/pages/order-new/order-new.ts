@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { Component, ViewChild, ElementRef } from '@angular/core';
+import { NavController, NavParams } from 'ionic-angular';
 import { PackageTypePage } from '../package-type/package-type';
 
 /*
@@ -13,7 +13,12 @@ import { PackageTypePage } from '../package-type/package-type';
 })
 export class OrderNewPage {
 
-  constructor(private navCtrl: NavController) {
+  @ViewChild("name") nameTxt: ElementRef;
+  @ViewChild("location") locationTxt: ElementRef;
+  @ViewChild("destination") destinationTxt: ElementRef;
+  @ViewChild("notes") notesTxt: ElementRef;
+
+  constructor(private navCtrl: NavController, navPar: NavParams) {
 
   }
   goToPackageType(){
