@@ -15,5 +15,4 @@ export class PackageTypePage {
   constructor(private navCtrl: NavController) {
 
   }
-
 }

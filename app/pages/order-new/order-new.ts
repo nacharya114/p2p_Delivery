@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
+import { PackageTypePage } from '../package-type/package-type';
 
 /*
   Generated class for the OrderNewPage page.
@@ -15,5 +16,7 @@ export class OrderNewPage {
   constructor(private navCtrl: NavController) {
 
   }
-
+  goToPackageType(){
+    this.navCtrl.push(PackageTypePage);
+  }
 }
