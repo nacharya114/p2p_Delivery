@@ -19,7 +19,8 @@ export class TabsPage {
     // should be each tab's root Page
     this.tab1Root = OrderPagePage;
     this.tab2Root = MapPagePage;
-    this.tab3Root = HistoryPagePage;
-    this.tab4Root = TrackPagePage;
+    this.tab3Root = TrackPagePage;
+    this.tab4Root = HistoryPagePage;
+
   }
 }
