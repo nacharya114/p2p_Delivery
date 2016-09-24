@@ -14,7 +14,7 @@ import { HistoryPagePage } from '../history-page/history-page';
 export class OrderPagePage {
 
   constructor(private navCtrl: NavController) {
-
+    console.log("testing");
   }
   goToHistory(){
     this.navCtrl.push(HistoryPagePage);
