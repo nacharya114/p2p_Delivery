@@ -1,8 +1,8 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
-import { NavController, Platform, Page } from 'ionic-angular';
+import { NavController } from 'ionic-angular';
 import { HistoryPagePage } from '../history-page/history-page';
 import { Geolocation } from 'ionic-native';
-import {GoogleMap, GoogleMapsEvent} from "ionic-native";
+import {ConnectivityService} from '../../providers/connectivity-service/connectivity-service';
 
 
 /*
@@ -14,48 +14,75 @@ import {GoogleMap, GoogleMapsEvent} from "ionic-native";
 
 declare var google;
 
-@Page({
+@Component({
   templateUrl: 'build/pages/map-page/map-page.html',
 })
 export class MapPagePage {
 
   @ViewChild('map') mapElement: ElementRef;
-  map: any;
 
-  constructor(public navCtrl: NavController, private platform: Platform) {
-    this.platform = platform;
-    //this.initializeMap();
+  map: any;
+  mapInitialised: boolean = false;
+  apiKey: any;
+
+  constructor(public navCtrl: NavController, private connectivityService: ConnectivityService) {
+    this.loadMap();
   }
 
   ionViewLoaded(){
     console.log("loaded view");
-    console.log(google.maps);
     this.loadMap();
   }
-/**
-  initializeMap() {
-    this.platform.ready().then(() => {
-        var minZoomLevel = 12;
 
-
-        this.map = new GoogleMap('map');
-        this.map.on(GoogleMapsEvent.MAP_READY).subscribe(() => console.log("Map is ready!"));
-        this.map.setVisible(true);
-    });
-  }
-  **/
 
 
   loadMap() {
-  /**
-    var uluru = {lat: -25.363, lng: 131.044};
-    console.log("map is here");
-    let map = new google.maps.Map(document.getElementById('map'), {
-          zoom: 4,
-          center: uluru
-        });
-        **/
 
+    this.addConnectivityListeners();
+
+    if(typeof google == "undefined" || typeof google.maps == "undefined"){
+
+      console.log("Google maps JavaScript needs to be loaded.");
+      this.disableMap();
+
+      if(this.connectivityService.isOnline()){
+        console.log("online, loading map");
+
+        //Load the SDK
+        window['mapInit'] = () => {
+          this.initMap();
+          this.enableMap();
+        }
+
+        let script = document.createElement("script");
+        script.id = "googleMaps";
+
+        if(this.apiKey){
+          script.src = 'http://maps.google.com/maps/api/js?key=' + this.apiKey + '&callback=mapInit';
+        } else {
+          script.src = 'http://maps.google.com/maps/api/js?callback=mapInit';
+        }
+
+        document.body.appendChild(script);
+
+      }
+    } else {
+
+    if(this.connectivityService.isOnline()){
+      console.log("showing map");
+      this.initMap();
+      this.enableMap();
+    }
+    else {
+      console.log("disabling map");
+      this.disableMap();
+    }
+
+  }
+  }
+
+  initMap() {
+    this.mapInitialised = true;
     Geolocation.getCurrentPosition().then((position) => {
       console.log(position);
       let latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
@@ -66,31 +93,46 @@ export class MapPagePage {
         mapTypeId: google.maps.MapTypeId.ROADMAP
       }
 
-      let map = new google.maps.Map(document.getElementById('map'), mapOptions);
+      let map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
     }, (err) => {
         console.log(err);
     });
   }
 
-    /**
-  loadMap(){
+  disableMap(){
+    console.log("disable map");
+  }
 
-    Geolocation.getCurrentPosition().then((position) => {
-      console.log(position);
-      let latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+  enableMap(){
+    console.log("enable map");
+  }
 
-      let mapOptions = {
-        center: latLng,
-        zoom: 15,
-        mapTypeId: google.maps.MapTypeId.ROADMAP
-      }
+  addConnectivityListeners(){
+    var me = this;
 
-      this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
-    }, (err) => {
-        console.log(err);
-    });
+    var onOnline = () => {
+      setTimeout(() => {
+        if(typeof google == "undefined" || typeof google.maps == "undefined"){
+          this.loadMap();
+        } else {
+          if(!this.mapInitialised){
+            this.initMap();
+          }
+
+          this.enableMap();
+        }
+      }, 2000);
+    };
+
+    var onOffline = () => {
+      this.disableMap();
+    };
+
+    document.addEventListener('online', onOnline, false);
+    document.addEventListener('offline', onOffline, false);
 
   }
-  **/
+
+
 
 }
