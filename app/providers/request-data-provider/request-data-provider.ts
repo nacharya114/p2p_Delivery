@@ -12,42 +12,59 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class RequestDataProvider {
 
-  constructor(private http: Http) {}
+  orderList: any;
 
-  saveOrder(id: number) {
+  constructor(private http: Http) {
+      this.orderList = [{
+          name : "Pete",
+          location: "ass",
+          destination: "hole",
+          type: "s",
+          notes: "notes",
+          complete: false
+      }];
+  }
+
+  getOrder() {
       return new Promise((resolve, reject) => {
           resolve();
       });
   }
 
-  getOrder(id: number) {
+  createOrder(form: JSON) {
+      console.log(form);
       return new Promise((resolve, reject) => {
-          resolve();
-      });
-  }
-
-  createOrder() {
-      return new Promise((resolve, reject) => {
-          resolve();
+          this.orderList.push(form);
+          resolve({status: 'OK'});
       });
   }
 
   getOrders(complete: boolean) {
-     return new Promise((resolve, reject) => {
-          resolve();
-      });
+      if (!complete) {
+          return new Promise((resolve, reject) => {
+              resolve(this.orderList);
+          });
+      } else {
+          return new Promise((resolve, reject) => {
+              resolve(this.orderList);
+          });
+      }
   }
 
   getTrackingOrders() {
-        return new Promise((resolve, reject) => {
-          resolve();
-      });
+        return new Promise((resolve, reject)=> {
+            this.getOrders(false).then((data) => {
+                resolve(data);
+            });
+        });
   }
 
   getCompletedOrders() {
-      return new Promise((resolve, reject) => {
-          resolve();
-      });
+      return new Promise((resolve, reject)=> {
+            this.getOrders(true).then((data) => {
+                resolve(data);
+            });
+        });
   }
 
 }
