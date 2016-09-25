@@ -22,7 +22,7 @@ export class TrackPagePage {
 
   constructor(private navCtrl: NavController, private rdp: RequestDataProvider) {
     this.packages = "";
-    this.rdp.getCompletedOrders().then((data) => {
+    this.rdp.getOutgoingOrders().then((data) => {
       this.orderlist = data;
     });
     this.rdp.getIncomingOrders().then((data) => {
@@ -48,8 +48,11 @@ export class TrackPagePage {
   }
 
   ionViewWillEnter(){
-      this.rdp.getTrackingOrders().then((data) => {
+      this.rdp.getOutgoingOrders().then((data) => {
           this.orderlist = data;
+      });
+      this.rdp.getIncomingOrders().then((data) => {
+        this.incomingList = data;
       });
        this.packages = "outgoing";
   }

@@ -94,7 +94,7 @@ export class RequestDataProvider {
           return new Promise((resolve, reject) => {
               let templist: any = [];
               for (var i = this.orderList.length - 1; i >= 0; i--) {
-                if(this.orderList[i]['complete'] == true){
+                if(this.orderList[i]['complete'] == true ){
                   console.log("LOGSF", this.orderList[i]);
                   templist.push(this.orderList[i]);
                 }
@@ -104,12 +104,19 @@ export class RequestDataProvider {
       }
   }
 
-  getTrackingOrders() {
-        return new Promise((resolve, reject)=> {
-            this.getOrders(false).then((data) => {
-                resolve(data);
-            });
+  getOutgoingOrders() {
+        return new Promise((resolve, reject) => {
+      this.getAllOrders().then(()=>{
+        let templist: any = [];
+          for (var i = this.orderList.length - 1; i >= 0; i--) {
+            if(this.orderList[i]['incoming'] == false && this.orderList[i]['complete'] == false ){
+              console.log("LOGSF", this.orderList[i]);
+              templist.push(this.orderList[i]);
+            }
+          }
+          resolve(templist);
         });
+    })
   }
 
   getCompletedOrders() {
@@ -125,7 +132,7 @@ export class RequestDataProvider {
       this.getAllOrders().then(()=>{
         let templist: any = [];
           for (var i = this.orderList.length - 1; i >= 0; i--) {
-            if(this.orderList[i]['incoming'] == true){
+            if(this.orderList[i]['incoming'] == true && this.orderList[i]['complete'] == false){
               console.log("LOGSF", this.orderList[i]);
               templist.push(this.orderList[i]);
             }
