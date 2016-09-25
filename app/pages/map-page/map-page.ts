@@ -24,6 +24,7 @@ export class MapPagePage {
   map: any;
   mapInitialised: boolean = false;
   apiKey: any;
+  var location;
 
   constructor(public navCtrl: NavController, private connectivityService: ConnectivityService) {
     this.loadMap();
@@ -137,19 +138,33 @@ export class MapPagePage {
     Geolocation.getCurrentPosition().then((position) => {
       console.log(position);
       let latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-
+      location = latLng;
       let mapOptions = {
         center: latLng,
         zoom: 15,
         mapTypeId: google.maps.MapTypeId.ROADMAP
       }
 
-      let map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
+      map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
+
     }, (err) => {
         console.log(err);
     });
+    addMarker();
 
   }
 
+  addMarker(){
+ 
+    let marker = new google.maps.Marker({
+      map: this.map,
+      animation: google.maps.Animation.DROP,
+      position: location
+    });
+ 
+    let content = "<h4>Information!</h4>";          
+ 
+   this.addInfoWindow(marker, content);
+}
 
 }
