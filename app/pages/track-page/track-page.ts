@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
+import { RequestDataProvider } from '../../providers/request-data-provider/request-data-provider';
 
 /*
   Generated class for the TrackPagePage page.
@@ -12,8 +13,13 @@ import { NavController } from 'ionic-angular';
 })
 export class TrackPagePage {
 
-  constructor(private navCtrl: NavController) {
+  orderlist: any;
 
+  constructor(private navCtrl: NavController, private rdp: RequestDataProvider) {
+    
   }
+
+
+
 
 }

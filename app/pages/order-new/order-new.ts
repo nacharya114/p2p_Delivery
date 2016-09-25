@@ -38,5 +38,6 @@ export class OrderNewPage {
       this.formData.complete = false;
       this.requestProvider.createOrder(this.formData);
       //TODO: save information and somehow send to tracking
+
     }
 }
