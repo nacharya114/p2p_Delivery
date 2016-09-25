@@ -49,7 +49,7 @@ export class RequestDataProvider {
 
       return new Promise((resolve, reject) => {
           form['id'] = this.idnum;
-
+          form['delivered'] = false;
           this.orderList.push(form);
           console.log(this.orderList);
           resolve({status: 'OK'});
@@ -60,11 +60,23 @@ export class RequestDataProvider {
       console.log(this.orderList);
       if (!complete) {
           return new Promise((resolve, reject) => {
-              resolve(this.orderList);
+              let templist: any;
+              for (var i = this.orderList.length - 1; i >= 0; i--) {
+                if(this.orderList[i]['delivered'] == false){
+                  templist.push(this.orderList[i]);
+                }
+              }
+              resolve(templist);
           });
       } else {
           return new Promise((resolve, reject) => {
-              resolve(this.orderList);
+              let templist: any;
+              for (var i = this.orderList.length - 1; i >= 0; i--) {
+                if(this.orderList[i]['delivered'] == true){
+                  templist.push(this.orderList[i]);
+                }
+              }
+              resolve(templist);
           });
       }
   }
