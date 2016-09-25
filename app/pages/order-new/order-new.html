@@ -24,6 +24,11 @@
     </ion-item>
 
     <ion-item>
+      <ion-label stacked>Description</ion-label>
+      <ion-input id='description' [value]='description' name='description' [(ngModel)]='formData.description' type="text"></ion-input>
+    </ion-item>
+
+    <ion-item>
       <ion-label stacked>Origin Address</ion-label>
       <ion-input type="text" [(ngModel)]='formData.location'></ion-input>
     </ion-item>
