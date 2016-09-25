@@ -25,6 +25,7 @@ export class RequestDataProvider {
           notes: "notes",
           complete: false,
           description: "Lorem epsum",
+          incoming: false
       }, {
           id: 1,
           name: "Joe",
@@ -34,8 +35,19 @@ export class RequestDataProvider {
           notes:"",
           complete: true,
           description: "Joe's Bag of Donuts",
+          incoming: false
+      }, {
+        id: 2,
+        name: "Mary",
+        location: "North Ave Appt",
+        destination: "711 Techwood Drive",
+        type:"s",
+        notes:"Her Rat Cap",
+        complete:false,
+        description:"Thanks Mary",
+        incoming: true
       }];
-      let idnum = 2;
+      let idnum = 3;
       console.log(this.orderList);
   }
 
@@ -54,6 +66,12 @@ export class RequestDataProvider {
           console.log(this.orderList);
           resolve({status: 'OK'});
       });
+  }
+
+  getAllOrders() {
+    return new Promise((resolve, reject) => {
+      resolve(this.orderList);
+    });
   }
 
   getOrders(complete: boolean) {
@@ -100,6 +118,21 @@ export class RequestDataProvider {
                 resolve(data);
             });
         });
+  }
+
+  getIncomingOrders() {
+    return new Promise((resolve, reject) => {
+      this.getAllOrders().then(()=>{
+        let templist: any = [];
+          for (var i = this.orderList.length - 1; i >= 0; i--) {
+            if(this.orderList[i]['incoming'] == true){
+              console.log("LOGSF", this.orderList[i]);
+              templist.push(this.orderList[i]);
+            }
+          }
+          resolve(templist);
+        });
+    })
   }
 
   markOrderComplete(order: any) {

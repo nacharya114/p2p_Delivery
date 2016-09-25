@@ -18,10 +18,15 @@ export class TrackPagePage {
   packages: any;
   formData: any;
 
+  incomingList: any;
+
   constructor(private navCtrl: NavController, private rdp: RequestDataProvider) {
     this.packages = "";
     this.rdp.getCompletedOrders().then((data) => {
       this.orderlist = data;
+    });
+    this.rdp.getIncomingOrders().then((data) => {
+      this.incomingList = data;
     });
   // this.formData = {
   //       name: "",
@@ -35,6 +40,11 @@ export class TrackPagePage {
   goToHistory(order: any) {
     this.rdp.markOrderComplete(this.orderlist.splice(this.orderlist.indexOf(order), 1)[0]);
 
+  }
+
+  goToHistoryIn(item: any) {
+    let t = this.incomingList.splice(this.incomingList.indexOf(item),1)[0];
+    this.rdp.markOrderComplete(t);
   }
 
   ionViewWillEnter(){
