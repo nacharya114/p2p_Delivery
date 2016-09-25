@@ -34,7 +34,7 @@
   </div>
 
   <div [ngSwitch]="packages">
-    <ion-list *ngSwitchCase="'incoming'">
+    <ion-list *ngSwitchWhen="'incoming'" ngSelected="selected">
       <ion-item *ngFor='let order of orderlist'>
         <ion-card>
           <ion-card-header>{{order.description}}</ion-card-header>
@@ -48,7 +48,8 @@
         </ion-card>
       </ion-item>
     </ion-list>
-    <ion-list *ngSwitchCase="'outgoing'">
+
+    <ion-list *ngSwitchWhen="'outgoing'">
 
     </ion-list>
   </div>

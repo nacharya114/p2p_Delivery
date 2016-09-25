@@ -14,8 +14,10 @@ import { RequestDataProvider } from '../../providers/request-data-provider/reque
 export class TrackPagePage {
 
   orderlist: any;
+  packages: any;
 
   constructor(private navCtrl: NavController, private rdp: RequestDataProvider) {
+    this.packages = "";
     // this.orderlist = [{
     //       name : "Pete",
     //       location: "ass",
@@ -30,6 +32,7 @@ export class TrackPagePage {
       this.rdp.getOrders(true).then((data) => {
           this.orderlist = data;
       });
+       this.packages = "incoming";
   }
 
   // ionViewLoaded(){
