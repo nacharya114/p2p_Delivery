@@ -20,6 +20,7 @@ export class TrackPagePage {
 
   constructor(private navCtrl: NavController, private rdp: RequestDataProvider) {
     this.packages = "";
+    this.orderlist = {};
   // this.formData = {
   //       name: "",
   //       location: "",
@@ -35,7 +36,7 @@ export class TrackPagePage {
   }
 
   ngOnInit(){
-      this.rdp.getOrders(true).then((data) => {
+      this.rdp.getTrackingOrders().then((data) => {
           this.orderlist = data;
       });
        this.packages = "incoming";

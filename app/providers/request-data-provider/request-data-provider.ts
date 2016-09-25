@@ -24,7 +24,8 @@ export class RequestDataProvider {
           type: "s",
           notes: "notes",
           complete: false,
-          description: "Lorem epsum"
+          description: "Lorem epsum",
+          delivered: false
       }, {
           id: 1,
           name: "Joe",
@@ -33,7 +34,8 @@ export class RequestDataProvider {
           type:"m",
           notes:"",
           complete: true,
-          description: "Joe's Bag of Donuts"
+          description: "Joe's Bag of Donuts",
+          delivered: false
       }];
       let idnum = 2;
       console.log(this.orderList);
@@ -60,20 +62,25 @@ export class RequestDataProvider {
   getOrders(complete: boolean) {
       console.log(this.orderList);
       if (!complete) {
+        console.log("here is false");
           return new Promise((resolve, reject) => {
-              let templist: any;
+              let templist: any = [];
               for (var i = this.orderList.length - 1; i >= 0; i--) {
+                console.log(this.orderList[i]);
                 if(this.orderList[i]['delivered'] == false){
+                  console.log("LOGST", this.orderList[i]);
                   templist.push(this.orderList[i]);
                 }
               }
               resolve(templist);
           });
       } else {
+        console.log("Here is true");
           return new Promise((resolve, reject) => {
-              let templist: any;
+              let templist: any = [];
               for (var i = this.orderList.length - 1; i >= 0; i--) {
                 if(this.orderList[i]['delivered'] == true){
+                  console.log("LOGSF", this.orderList[i]);
                   templist.push(this.orderList[i]);
                 }
               }
