@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Http, Response, Headers, RequestOptions } from '@angular/http';
-import { Observable } from 'rxjs/Observable'
+import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/toPromise';
 
 
 /*
@@ -15,58 +13,62 @@ import 'rxjs/add/operator/toPromise';
 export class RequestDataProvider {
 
   orderList: any;
-  public apiURL: string = "";
 
   constructor(private http: Http) {
-      this.orderList = [];
+      this.orderList = [{
+          name : "Pete",
+          location: "New York, NY",
+          destination: "Chicago, IL",
+          type: "s",
+          notes: "notes",
+          complete: false,
+          description: "Lorem epsum"
+      }, {
+          name: "Joe",
+          location:"Atlanta, Georgia",
+          destination:"Athens, Georgia",
+          type:"m",
+          notes:"",
+          complete: true,
+          description: "Joe's Bag of Donuts"
+      }];
       console.log(this.orderList);
   }
 
   getOrder() {
       return new Promise((resolve, reject) => {
-
           resolve();
       });
   }
 
   createOrder(form: JSON) {
 
-      // return new Promise((resolve, reject) => {
-      //     this.orderList.push(form);
-      //     console.log(this.orderList);
-      //     resolve({status: 'OK'});
-      // });
-  let headers = new Headers({ 'Content-Type': 'application/json' });
-  let options = new RequestOptions({ headers: headers });
-  console.log("Logs", JSON.stringify(form));
-    return this.http.post(this.apiURL + "/api/orders", JSON.stringify(form),  options)
-                .toPromise()
-                .then(this.extractData)
-                .catch(this.handleError);
+      return new Promise((resolve, reject) => {
+          this.orderList.push(form);
+          console.log(this.orderList);
+          resolve({status: 'OK'});
+      });
   }
 
   getOrders(complete: boolean) {
-    if(complete == undefined) {
-      return this.http.get(this.apiURL+"/api/orders")
-                    .toPromise()
-                    .then(this.extractData)
-                    .catch(this.handleError);
-    }
-      if (complete) {
-        return this.http.get(this.apiURL+"/api/orders?complete=true")
-                    .toPromise()
-                    .then(this.extractData)
-                    .catch(this.handleError);
+      console.log(this.orderList);
+      if (!complete) {
+          return new Promise((resolve, reject) => {
+              resolve(this.orderList);
+          });
       } else {
-        return this.http.get(this.apiURL+"/api/orders?complete=false")
-                    .toPromise()
-                    .then(this.extractData)
-                    .catch(this.handleError);
+          return new Promise((resolve, reject) => {
+              resolve(this.orderList);
+          });
       }
   }
 
   getTrackingOrders() {
-
+        return new Promise((resolve, reject)=> {
+            this.getOrders(false).then((data) => {
+                resolve(data);
+            });
+        });
   }
 
   getCompletedOrders() {
@@ -75,18 +77,6 @@ export class RequestDataProvider {
                 resolve(data);
             });
         });
-  }
-
-  private extractData(res: Response) {
-    let body = res.json();
-    return body.data || {};
-  }
-
-  private handleError(error: any) {
-    let errMsg = (error.message) ? error.message :
-    error.status ? `${error.status} - ${error.statusText}` : 'Server error';
-  console.error(errMsg); // log to console instead
-  return Promise.reject(errMsg);
   }
 
 }

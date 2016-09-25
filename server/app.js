@@ -87,8 +87,8 @@ app.route('/api/orders')
 
 
 
-app.listen(8100, function () {
-  console.log('Example app listening on port 8100!');
+app.listen(3000, function () {
+  console.log('Example app listening on port 3000!');
 });
 
 // var insertDocuments = function(db, callback) {
