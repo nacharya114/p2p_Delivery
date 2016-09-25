@@ -49,6 +49,7 @@ export class RequestDataProvider {
 
       return new Promise((resolve, reject) => {
           form['id'] = this.idnum;
+          this.idnum++;
           form['delivered'] = false;
           this.orderList.push(form);
           console.log(this.orderList);
