@@ -17,14 +17,13 @@ export class HistoryPagePage {
   packages: any;
 
   constructor(private navCtrl: NavController, private rdp: RequestDataProvider) {
-    this.packages = "";
   }
 
   ngOnInit(){
-        this.rdp.getOrders(true).then((data) => {
+        this.rdp.getCompletedOrders().then((data) => {
             this.orderlist = data;
         });
-         this.packages = "incoming";
+
     }
 }
 
