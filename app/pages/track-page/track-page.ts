@@ -30,7 +30,7 @@ export class TrackPagePage {
   }
 
   goToHistory(order: any) {
-    this.orderlist.splice(this.orderlist.indexOf(order), 1);
+    this.rdp.markOrderComplete(this.orderlist.splice(this.orderlist.indexOf(order), 1)[0]);
 
   }
 

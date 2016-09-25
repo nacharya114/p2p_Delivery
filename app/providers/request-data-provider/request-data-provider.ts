@@ -97,5 +97,13 @@ export class RequestDataProvider {
         });
   }
 
+  markOrderComplete(order: any) {
+    return new Promise((resolve, reject) => {
+        let i =this.orderList.indexOf(order);
+        this.orderList[i]["delivered"] = true;
+        resolve();
+    });
+  }
+
 }
 
