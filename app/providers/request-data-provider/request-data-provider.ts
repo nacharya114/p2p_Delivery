@@ -39,7 +39,6 @@ export class RequestDataProvider {
   let headers = new Headers({ 'Content-Type': 'application/json' });
   let options = new RequestOptions({ headers: headers });
   console.log("Logs", JSON.stringify(form));
-  debugger;
     return this.http.post(this.apiURL + "/api/orders", JSON.stringify(form),  options)
                 .toPromise()
                 .then(this.extractData)
