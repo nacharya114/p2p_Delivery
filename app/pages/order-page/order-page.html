@@ -4,16 +4,152 @@
   See http://ionicframework.com/docs/v2/components/#navigation for more info on
   Ionic pages and navigation.
 -->
-<ion-header>
+<ion-header class="ion-header">
 
-  <ion-navbar>
+  <ion-view title="test" class="frame_look_feel"> 
+  	 
     <ion-title>Order</ion-title>
-  </ion-navbar>
+  	
+  </ion-view>
 
 </ion-header>
 
 <ion-content padding>
+  <button dark full (click)="goToOrderNew()">Order a New Package</button>
+  <ion-list>
+    <ion-item *ngFor='let order of orderlist'>
+      <ion-card>
+        <ion-card-header>{{order.description}}</ion-card-header>
+        <ion-card-content>
+          <ul>
+            <li>Name: {{order.name}}</li>
+            <li>Destination: {{order.destination}}</li>
+            <li>Notes: {{order.notes}}</li>
+          </ul>
+        </ion-card-content>
+      </ion-card>
+    </ion-item>
+    <ion-item>
+      <ion-card>
+        <ion-card-header>Does this work?</ion-card-header>
+        <ion-card-content>
+          just checking
+        </ion-card-content>
+      </ion-card>
+    </ion-item>
+    <ion-item>
+      <ion-card>
+        <ion-card-header>Does this work?</ion-card-header>
+        <ion-card-content>
+          just checking
+        </ion-card-content>
+      </ion-card>
+    </ion-item>
+    <ion-item>
+      <ion-card>
+        <ion-card-header>Does this work?</ion-card-header>
+        <ion-card-content>
+          just checking
+        </ion-card-content>
+      </ion-card>
+    </ion-item>
+    <ion-item>
+      <ion-card>
+        <ion-card-header>Does this work?</ion-card-header>
+        <ion-card-content>
+          just checking
+        </ion-card-content>
+      </ion-card>
+    </ion-item>
+    <ion-item>
+      <ion-card>
+        <ion-card-header>Does this work?</ion-card-header>
+        <ion-card-content>
+          just checking
+        </ion-card-content>
+      </ion-card>
+    </ion-item>
+    <ion-item>
+      <ion-card>
+        <ion-card-header>Does this work?</ion-card-header>
+        <ion-card-content>
+          just checking
+        </ion-card-content>
+      </ion-card>
+    </ion-item>
+    <ion-item>
+      <ion-card>
+        <ion-card-header>Does this work?</ion-card-header>
+        <ion-card-content>
+          just checking
+        </ion-card-content>
+      </ion-card>
+    </ion-item>
+    <ion-item>
+      <ion-card>
+        <ion-card-header>Does this work?</ion-card-header>
+        <ion-card-content>
+          just checking
+        </ion-card-content>
+      </ion-card>
+    </ion-item>
+    <ion-item>
+      <ion-card>
+        <ion-card-header>Does this work?</ion-card-header>
+        <ion-card-content>
+          just checking
+        </ion-card-content>
+      </ion-card>
+    </ion-item>
+    <ion-item>
+      <ion-card>
+        <ion-card-header>Does this work?</ion-card-header>
+        <ion-card-content>
+          just checking
+        </ion-card-content>
+      </ion-card>
+    </ion-item>
+    <ion-item>
+      <ion-card>
+        <ion-card-header>Does this work?</ion-card-header>
+        <ion-card-content>
+          just checking
+        </ion-card-content>
+      </ion-card>
+    </ion-item>
+    <ion-item>
+      <ion-card>
+        <ion-card-header>Does this work?</ion-card-header>
+        <ion-card-content>
+          just checking
+        </ion-card-content>
+      </ion-card>
+    </ion-item>
+    <ion-item>
+      <ion-card>
+        <ion-card-header>Does this work?</ion-card-header>
+        <ion-card-content>
+          just checking
+        </ion-card-content>
+      </ion-card>
+    </ion-item>
+    <ion-item>
+      <ion-card>
+        <ion-card-header>Does this work?</ion-card-header>
+        <ion-card-content>
+          just checking
+        </ion-card-content>
+      </ion-card>
+    </ion-item>
+    <ion-item>
+      <ion-card>
+        <ion-card-header>Does this work?</ion-card-header>
+        <ion-card-content>
+          just checking
+        </ion-card-content>
+      </ion-card>
+    </ion-item>
+  </ion-list>
  	<button dark full (click)="goToOrderNew()">Order a New Package</button>
- 	<!--<button light full (click)="goToHistory()">Check Previous Packages</button>-->
 
 </ion-content>
