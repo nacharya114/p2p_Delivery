@@ -30,6 +30,7 @@ export class OrderNewPage {
       console.log("hi");
       //console.log(this.formData);
       this.formData['complete'] = false;
+      this.formData['incoming'] = false;
       this.requestProvider.createOrder(this.formData);
       //TODO: save information and somehow send to tracking
 
