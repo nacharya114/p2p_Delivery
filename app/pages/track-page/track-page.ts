@@ -41,7 +41,7 @@ export class TrackPagePage {
       this.rdp.getTrackingOrders().then((data) => {
           this.orderlist = data;
       });
-       this.packages = "incoming";
+       this.packages = "outgoing";
   }
 
   // ionViewLoaded(){
