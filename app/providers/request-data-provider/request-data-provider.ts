@@ -17,20 +17,20 @@ export class RequestDataProvider {
   constructor(private http: Http) {
       this.orderList = [{
           name : "Pete",
-          location: "ate",
-          destination: "he",
+          location: "New York, NY",
+          destination: "Chicago, IL",
           type: "s",
           notes: "notes",
           complete: false,
-          description: "Andrewsadick"
+          description: "Lorem epsum"
       }, {
           name: "Joe",
-          location:"test",
-          destination:"test2",
+          location:"Atlanta, Georgia",
+          destination:"Athens, Georgia",
           type:"m",
           notes:"",
           complete: true,
-          description: "Adityaisabitch"
+          description: "Joe's Bag of Donuts"
       }];
       console.log(this.orderList);
   }
