@@ -20,7 +20,9 @@ export class TrackPagePage {
 
   constructor(private navCtrl: NavController, private rdp: RequestDataProvider) {
     this.packages = "";
-    this.orderlist = {};
+    this.rdp.getCompletedOrders().then((data) => {
+      this.orderlist = data;
+    });
   // this.formData = {
   //       name: "",
   //       location: "",
@@ -35,7 +37,7 @@ export class TrackPagePage {
 
   }
 
-  ngOnInit(){
+  ionViewWillEnter(){
       this.rdp.getTrackingOrders().then((data) => {
           this.orderlist = data;
       });

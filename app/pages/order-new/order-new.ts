@@ -19,13 +19,7 @@ export class OrderNewPage {
 
   constructor(private navCtrl: NavController, navPar: NavParams, private requestProvider: RequestDataProvider) {
 
-    this.formData = {
-      name: "",
-      location: "",
-      destination: "",
-      type: "",
-      notes:""
-    };
+    this.formData = {};
   }
   goToPackageType(){
     this.navCtrl.push(PackageTypePage);
@@ -35,7 +29,7 @@ export class OrderNewPage {
       this.navCtrl.pop();
       console.log("hi");
       //console.log(this.formData);
-      this.formData.complete = false;
+      this.formData['complete'] = false;
       this.requestProvider.createOrder(this.formData);
       //TODO: save information and somehow send to tracking
 

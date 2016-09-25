@@ -25,7 +25,6 @@ export class RequestDataProvider {
           notes: "notes",
           complete: false,
           description: "Lorem epsum",
-          delivered: false
       }, {
           id: 1,
           name: "Joe",
@@ -35,7 +34,6 @@ export class RequestDataProvider {
           notes:"",
           complete: true,
           description: "Joe's Bag of Donuts",
-          delivered: false
       }];
       let idnum = 2;
       console.log(this.orderList);
@@ -52,7 +50,6 @@ export class RequestDataProvider {
       return new Promise((resolve, reject) => {
           form['id'] = this.idnum;
           this.idnum++;
-          form['delivered'] = false;
           this.orderList.push(form);
           console.log(this.orderList);
           resolve({status: 'OK'});
@@ -67,7 +64,7 @@ export class RequestDataProvider {
               let templist: any = [];
               for (var i = this.orderList.length - 1; i >= 0; i--) {
                 console.log(this.orderList[i]);
-                if(this.orderList[i]['delivered'] == false){
+                if(this.orderList[i]['complete'] == false){
                   console.log("LOGST", this.orderList[i]);
                   templist.push(this.orderList[i]);
                 }
@@ -79,7 +76,7 @@ export class RequestDataProvider {
           return new Promise((resolve, reject) => {
               let templist: any = [];
               for (var i = this.orderList.length - 1; i >= 0; i--) {
-                if(this.orderList[i]['delivered'] == true){
+                if(this.orderList[i]['complete'] == true){
                   console.log("LOGSF", this.orderList[i]);
                   templist.push(this.orderList[i]);
                 }
@@ -108,7 +105,7 @@ export class RequestDataProvider {
   markOrderComplete(order: any) {
     return new Promise((resolve, reject) => {
         let i =this.orderList.indexOf(order);
-        this.orderList[i]["delivered"] = true;
+        this.orderList[i]["complete"] = true;
         resolve();
     });
   }

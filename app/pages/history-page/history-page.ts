@@ -17,9 +17,12 @@ export class HistoryPagePage {
   packages: any;
 
   constructor(private navCtrl: NavController, private rdp: RequestDataProvider) {
+    this.rdp.getCompletedOrders().then((data) => {
+            this.orderlist = data;
+        });
   }
 
-  ngOnInit(){
+  ionViewWillEnter(){
         this.rdp.getCompletedOrders().then((data) => {
             this.orderlist = data;
         });
