@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
+import { Http, Response } from '@angular/http';
+import { Observable } from 'rxjs/Observable'
 import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/toPromise';
 
 
 /*
@@ -13,62 +15,59 @@ import 'rxjs/add/operator/map';
 export class RequestDataProvider {
 
   orderList: any;
+  public apiURL: string = "http://0742fccb.ngrok.io";
 
   constructor(private http: Http) {
-      this.orderList = [{
-          name : "Pete",
-          location: "New York, NY",
-          destination: "Chicago, IL",
-          type: "s",
-          notes: "notes",
-          complete: false,
-          description: "Lorem epsum"
-      }, {
-          name: "Joe",
-          location:"Atlanta, Georgia",
-          destination:"Athens, Georgia",
-          type:"m",
-          notes:"",
-          complete: true,
-          description: "Joe's Bag of Donuts"
-      }];
+      this.orderList = [];
       console.log(this.orderList);
   }
 
   getOrder() {
       return new Promise((resolve, reject) => {
+
           resolve();
       });
   }
 
   createOrder(form: JSON) {
 
-      return new Promise((resolve, reject) => {
-          this.orderList.push(form);
-          console.log(this.orderList);
-          resolve({status: 'OK'});
-      });
+      // return new Promise((resolve, reject) => {
+      //     this.orderList.push(form);
+      //     console.log(this.orderList);
+      //     resolve({status: 'OK'});
+      // });
+  let headers = { 'Content-Type': 'application/json',
+                  'Access-Control-Allow-Origin': "This.com" };
+  let options = { headers: headers };
+
+    return this.http.post(this.apiURL + "/api/orders", form)
+                .toPromise()
+                .then(this.extractData)
+                .catch(this.handleError);
   }
 
   getOrders(complete: boolean) {
-      console.log(this.orderList);
-      if (!complete) {
-          return new Promise((resolve, reject) => {
-              resolve(this.orderList);
-          });
+    if(complete == undefined) {
+      return this.http.get(this.apiURL+"/api/orders")
+                    .toPromise()
+                    .then(this.extractData)
+                    .catch(this.handleError);
+    }
+      if (complete) {
+        return this.http.get(this.apiURL+"/api/orders?complete=true")
+                    .toPromise()
+                    .then(this.extractData)
+                    .catch(this.handleError);
       } else {
-          return new Promise((resolve, reject) => {
-              resolve(this.orderList);
-          });
+        return this.http.get(this.apiURL+"/api/orders?complete=false")
+                    .toPromise()
+                    .then(this.extractData)
+                    .catch(this.handleError);
       }
   }
 
   getTrackingOrders() {
-        return new Promise((resolve, reject)=> {
-            this.getOrders(false).then((data) => {
-                resolve(data);
-            });
-        });
+
   }
 
   getCompletedOrders() {
@@ -77,6 +76,18 @@ export class RequestDataProvider {
                 resolve(data);
             });
         });
+  }
+
+  private extractData(res: Response) {
+    let body = res.json();
+    return body.data || {};
+  }
+
+  private handleError(error: any) {
+    let errMsg = (error.message) ? error.message :
+    error.status ? `${error.status} - ${error.statusText}` : 'Server error';
+  console.error(errMsg); // log to console instead
+  return Promise.reject(errMsg);
   }
 
 }
