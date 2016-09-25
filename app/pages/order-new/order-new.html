@@ -16,11 +16,9 @@
 <ion-content padding>
 
 
-  <ion-list>
-
     <ion-item>
       <ion-label stacked>Name</ion-label>
-      <ion-input id='name' [value]='name' name='name' [(ngModel)]='formData.name' type="text"></ion-input>
+      <ion-input floating id='name' [value]='name' name='name' [(ngModel)]='formData.name' type="text"></ion-input>
     </ion-item>
 
     <ion-item>
@@ -38,8 +36,6 @@
       <ion-input type="text" [(ngModel)]="formData.destination"></ion-input>
     </ion-item>
 
-  </ion-list>
-
   <ion-item>
     <ion-label>Package Type</ion-label>
     <ion-select [(ngModel)]="formData.type">
@@ -53,14 +49,10 @@
 
   <button full dark (click)="goToPackageType()">Box Size Info</button>
 
-  <ion-list>
-
     <ion-item>
       <ion-label stacked>Additional Notes</ion-label>
       <ion-input type="text" [(ngModel)]='formData.notes'></ion-input>
     </ion-item>
-
-  </ion-list>
 
   <button full dark (click)="Submit()">Place Order</button>
 
