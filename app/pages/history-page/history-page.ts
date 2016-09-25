@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
+import { RequestDataProvider } from '../../providers/request-data-provider/request-data-provider';
 
 /*
   Generated class for the HistoryPagePage page.
@@ -12,14 +13,19 @@ import { NavController } from 'ionic-angular';
 })
 export class HistoryPagePage {
 
-  constructor(private navCtrl: NavController) {
+  orderlist: any;
+  packages: any;
 
-  }
-  goToHistory(){
-    this.navCtrl.push(HistoryPagePage);
-    //TODO
+  constructor(private navCtrl: NavController, private rdp: RequestDataProvider) {
+    this.packages = "";
   }
 
+  ngOnInit(){
+        this.rdp.getOrders(true).then((data) => {
+            this.orderlist = data;
+        });
+         this.packages = "incoming";
+    }
 }
 
 

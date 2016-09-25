@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, NavParams } from 'ionic-angular';
+import { PackageTypePage } from '../package-type/package-type';
 import { RequestDataProvider } from '../../providers/request-data-provider/request-data-provider';
 
 /*
@@ -15,17 +16,22 @@ export class TrackPagePage {
 
   orderlist: any;
   packages: any;
+  formData: any;
 
   constructor(private navCtrl: NavController, private rdp: RequestDataProvider) {
     this.packages = "";
-    // this.orderlist = [{
-    //       name : "Pete",
-    //       location: "ass",
-    //       destination: "hole",
-    //       type: "s",
-    //       notes: "notes",
-    //       complete: false
-    //   }];
+  this.formData = {
+        name: "",
+        location: "",
+        destination: "",
+        type: "",
+        notes:""
+      };
+  }
+
+  goToHistory() { 
+    this.formData.complete = false;
+    this.rdp.createOrder(this.formData);
   }
 
   ngOnInit(){
