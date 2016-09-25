@@ -1,3 +1,11 @@
-.order-new {
-
+.order-new-page {
+	ion-item {
+		border-top: none;
+	}
+	ion-list{
+		border-top: none;
+	}
+	.item:first-child {
+    	border-top: none;
+	}
 }
