@@ -19,10 +19,29 @@
   <ion-list>
     <ion-item>
       <ion-card>
-        <ion-card-header>Does this work?</ion-card-header>
+        <ion-card-header>Used Textbooks</ion-card-header>
         <ion-card-content>
-          just checking
-          <button full dark (click)="goToHistory(order)">Delivered</button>
+          <ul>
+            <li>Name: John</li>
+            <li>Destination: 55 North Ave</li>
+            <li>Notes: I hated this class</li>
+          </ul>
+          <button full dark (click)="goToHistory(order)">Accept</button>
+        </ion-card-content>
+      </ion-card>
+    </ion-item>
+
+
+    <ion-item>
+      <ion-card>
+        <ion-card-header>Toolset</ion-card-header>
+        <ion-card-content>
+          <ul>
+            <li>Name: Patrick</li>
+            <li>Destination: 516 5th Ave</li>
+            <li>Notes: N/A</li>
+          </ul>
+          <button full dark (click)="goToHistory(order)">Accept</button>
         </ion-card-content>
       </ion-card>
     </ion-item>
