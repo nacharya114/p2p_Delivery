@@ -36,7 +36,11 @@ var db = mongojs("p2p", ['orders']);
 // });
 
 app.use('/',express.static(path.resolve(__dirname,'../www')));
-
+app.use(bodyParser());
+app.use(function(req,res,next){
+	next();
+	console.log(req.method,req.path,req.body);
+})
 app.route('/api/orders')
 .get(function (req, res) {
 	var status = req.query.complete;
@@ -63,8 +67,14 @@ app.route('/api/orders')
   res.send('Hello World!');
 })
 .post(function (req,res){
+	console.log("POST BEING MADE!",req.body);
 	db.orders.insert(req.body, function(err, doc) {
-        res.json(doc);
+        if (err){
+        	console.log(err);
+        }else{
+        	res.json(doc);
+        	console.log(doc);
+        }
     });
 });
 

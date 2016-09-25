@@ -15,7 +15,7 @@ import 'rxjs/add/operator/toPromise';
 export class RequestDataProvider {
 
   orderList: any;
-  public apiURL: string = "http://0742fccb.ngrok.io";
+  public apiURL: string = "";
 
   constructor(private http: Http) {
       this.orderList = [];
