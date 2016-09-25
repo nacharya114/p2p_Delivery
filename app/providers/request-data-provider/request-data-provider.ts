@@ -13,9 +13,11 @@ import 'rxjs/add/operator/map';
 export class RequestDataProvider {
 
   orderList: any;
+  idnum: number;
 
   constructor(private http: Http) {
       this.orderList = [{
+          id: 0,
           name : "Pete",
           location: "New York, NY",
           destination: "Chicago, IL",
@@ -24,6 +26,7 @@ export class RequestDataProvider {
           complete: false,
           description: "Lorem epsum"
       }, {
+          id: 1,
           name: "Joe",
           location:"Atlanta, Georgia",
           destination:"Athens, Georgia",
@@ -32,6 +35,7 @@ export class RequestDataProvider {
           complete: true,
           description: "Joe's Bag of Donuts"
       }];
+      let idnum = 2;
       console.log(this.orderList);
   }
 
@@ -44,6 +48,8 @@ export class RequestDataProvider {
   createOrder(form: JSON) {
 
       return new Promise((resolve, reject) => {
+          form['id'] = this.idnum;
+
           this.orderList.push(form);
           console.log(this.orderList);
           resolve({status: 'OK'});

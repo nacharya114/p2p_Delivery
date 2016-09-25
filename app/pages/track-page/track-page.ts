@@ -20,18 +20,18 @@ export class TrackPagePage {
 
   constructor(private navCtrl: NavController, private rdp: RequestDataProvider) {
     this.packages = "";
-  this.formData = {
-        name: "",
-        location: "",
-        destination: "",
-        type: "",
-        notes:""
-      };
+  // this.formData = {
+  //       name: "",
+  //       location: "",
+  //       destination: "",
+  //       type: "",
+  //       notes:""
+  //     };
   }
 
-  goToHistory() { 
-    this.formData.complete = false;
-    this.rdp.createOrder(this.formData);
+  goToHistory(order: any) {
+    this.orderlist.splice(this.orderlist.indexOf(order), 1);
+
   }
 
   ngOnInit(){
