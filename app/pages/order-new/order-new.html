@@ -20,24 +20,29 @@
 
     <ion-item>
       <ion-label stacked>Name</ion-label>
-      <ion-input type="text" #name></ion-input>
+      <ion-input id='name' [value]='name' name='name' [(ngModel)]='formData.name' type="text"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label stacked>Description</ion-label>
+      <ion-input id='description' [value]='description' name='description' [(ngModel)]='formData.description' type="text"></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-label stacked>Origin Address</ion-label>
-      <ion-input type="text" #location></ion-input>
+      <ion-input type="text" [(ngModel)]='formData.location'></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-label stacked>Destination Address</ion-label>
-      <ion-input type="text" #destination></ion-input>
+      <ion-input type="text" [(ngModel)]="formData.destination"></ion-input>
     </ion-item>
 
   </ion-list>
 
   <ion-item>
     <ion-label>Package Type</ion-label>
-    <ion-select [(ngModel)]="type">
+    <ion-select [(ngModel)]="formData.type">
       <ion-option value="s" selected="true">Small Box</ion-option>
       <ion-option value="m">Medium Box</ion-option>
       <ion-option value="l">Large Box</ion-option>
@@ -52,7 +57,7 @@
 
     <ion-item>
       <ion-label stacked>Additional Notes</ion-label>
-      <ion-input type="text" #notes></ion-input>
+      <ion-input type="text" [(ngModel)]='formData.notes'></ion-input>
     </ion-item>
 
   </ion-list>

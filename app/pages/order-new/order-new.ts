@@ -1,6 +1,7 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { PackageTypePage } from '../package-type/package-type';
+import { RequestDataProvider } from '../../providers/request-data-provider/request-data-provider';
 
 /*
   Generated class for the OrderNewPage page.
@@ -11,15 +12,20 @@ import { PackageTypePage } from '../package-type/package-type';
 @Component({
   templateUrl: 'build/pages/order-new/order-new.html',
 })
+
 export class OrderNewPage {
 
-  @ViewChild("name") nameTxt: ElementRef;
-  @ViewChild("location") locationTxt: ElementRef;
-  @ViewChild("destination") destinationTxt: ElementRef;
-  @ViewChild("notes") notesTxt: ElementRef;
+  formData: any;
 
-  constructor(private navCtrl: NavController, navPar: NavParams) {
+  constructor(private navCtrl: NavController, navPar: NavParams, private requestProvider: RequestDataProvider) {
 
+    this.formData = {
+      name: "",
+      location: "",
+      destination: "",
+      type: "",
+      notes:""
+    };
   }
   goToPackageType(){
     this.navCtrl.push(PackageTypePage);
@@ -27,6 +33,11 @@ export class OrderNewPage {
 
   Submit(){
       this.navCtrl.pop();
+      console.log("hi");
+      //console.log(this.formData);
+      this.formData.complete = false;
+      this.requestProvider.createOrder(this.formData);
       //TODO: save information and somehow send to tracking
+
     }
 }
