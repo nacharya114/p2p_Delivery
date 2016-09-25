@@ -43,12 +43,12 @@ app.route('/api/orders')
 	if (status){
 		db.orders.find({complete: true}, function(err, docs) {
       if (err) console.log(err);
-      console.log(docs);
+      res.json(docs);
     });
 	}else{
 		db.orders.find({complete: false}, function(err, docs){
       if (err) console.log(err);
-      console.log(docs);
+      res.json(docs);
     });
 	}
 /*  insertDocuments(db, function() {
@@ -61,6 +61,11 @@ app.route('/api/orders')
     });
   });*/
   res.send('Hello World!');
+})
+.post(function (req,res){
+	db.orders.insert(req.body, function(err, doc) {
+        res.json(doc);
+    });
 });
 
 
