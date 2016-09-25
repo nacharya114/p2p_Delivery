@@ -35,7 +35,19 @@
 
   <div [ngSwitch]="packages">
     <ion-list *ngSwitchWhen="'incoming'" ngSelected="selected">
-
+      <ion-item>
+        <ion-card>
+          <ion-card-header>T-Shirts</ion-card-header>
+          <ion-card-content>
+            <ul>
+              <li>Name: Mary</li>
+              <li>Destination: 711 Techwood Dr</li>
+              <li>Notes: Thank you Mary!</li>
+            </ul>
+            <button full dark (click)="goToHistory(order)">Received</button>
+          </ion-card-content>
+        </ion-card>
+      </ion-item>
     </ion-list>
 
     <ion-list *ngSwitchWhen="'outgoing'">
