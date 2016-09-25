@@ -22,7 +22,7 @@ export class RequestDataProvider {
           type: "s",
           notes: "notes",
           complete: false,
-          description: "Asshole"
+          description: "Andrewsadick"
       }, {
           name: "Joe",
           location:"test",
@@ -30,7 +30,7 @@ export class RequestDataProvider {
           type:"m",
           notes:"",
           complete: true,
-          description: "NotandAsshole"
+          description: "Adityaisabitch"
       }];
       console.log(this.orderList);
   }
