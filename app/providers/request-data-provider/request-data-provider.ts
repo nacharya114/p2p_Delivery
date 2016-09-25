@@ -17,12 +17,22 @@ export class RequestDataProvider {
   constructor(private http: Http) {
       this.orderList = [{
           name : "Pete",
-          location: "ass",
-          destination: "hole",
+          location: "ate",
+          destination: "he",
           type: "s",
           notes: "notes",
-          complete: false
+          complete: false,
+          description: "Asshole"
+      }, {
+          name: "Joe",
+          location:"test",
+          destination:"test2",
+          type:"m",
+          notes:"",
+          complete: true,
+          description: "NotandAsshole"
       }];
+      console.log(this.orderList);
   }
 
   getOrder() {
@@ -32,14 +42,16 @@ export class RequestDataProvider {
   }
 
   createOrder(form: JSON) {
-      console.log(form);
+
       return new Promise((resolve, reject) => {
           this.orderList.push(form);
+          console.log(this.orderList);
           resolve({status: 'OK'});
       });
   }
 
   getOrders(complete: boolean) {
+      console.log(this.orderList);
       if (!complete) {
           return new Promise((resolve, reject) => {
               resolve(this.orderList);
