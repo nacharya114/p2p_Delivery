@@ -133,6 +133,23 @@ export class MapPagePage {
 
   }
 
+  getCurrentLocation(){
+    Geolocation.getCurrentPosition().then((position) => {
+      console.log(position);
+      let latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+
+      let mapOptions = {
+        center: latLng,
+        zoom: 15,
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+      }
+
+      let map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
+    }, (err) => {
+        console.log(err);
+    });
+
+  }
 
 
 }
