@@ -11,6 +11,9 @@ var database;
 var orders;
 // Use connect method to connect to the Server 
 MongoClient.connect(url, function(err, db) {
+	if (err){
+		console.log(err);
+	}
   assert.equal(null, err);
   database = db;
   orders = db.collection("Orders");
@@ -34,11 +37,11 @@ app.use('/',express.static(path.resolve(__dirname,'../www')));
 
 app.route('/api/orders')
 .get(function (req, res) {
-	var status = req.query.completed;
+	var status = req.query.complete;
 	if (status){
-		database.collection.find({completed: "true"})
+		console.log(database.find({complete: true}));
 	}else{
-		
+		console.log(database.find({complete: false}));
 	}
 /*  insertDocuments(db, function() {
     updateDocument(db, function() {
@@ -112,7 +115,7 @@ var findDocuments = function(db, callback) {
 }
 
 function exitHandler(options, err) {
-    db.close();
+    database.close();
 }
 
 //do something when app is closing
