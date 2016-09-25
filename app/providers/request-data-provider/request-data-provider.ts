@@ -15,7 +15,7 @@ import 'rxjs/add/operator/toPromise';
 export class RequestDataProvider {
 
   orderList: any;
-  public apiURL: string = "http://0742fccb.ngrok.io";
+  public apiURL: string = "";
 
   constructor(private http: Http) {
       this.orderList = [];
@@ -36,8 +36,7 @@ export class RequestDataProvider {
       //     console.log(this.orderList);
       //     resolve({status: 'OK'});
       // });
-  let headers = new Headers({ 'Content-Type': 'application/json',
-                  'Access-Control-Allow-Origin': "http://localhost:8100" });
+  let headers = new Headers({ 'Content-Type': 'application/json' });
   let options = new RequestOptions({ headers: headers });
   console.log("Logs", JSON.stringify(form));
   debugger;

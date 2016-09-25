@@ -7,6 +7,12 @@ var bodyParser = require('body-parser');
 var mongojs = require('mongojs');
 var db = mongojs("p2p", ['orders']);
 
+app.use(bodyParser());
+app.use(function(req,res,next){
+    next();
+    console.log(req.method,req.path,req.body);
+});
+
 // // Connection URL
 // var url = 'mongodb://localhost:27017/myproject';
 // var database;
@@ -40,6 +46,7 @@ app.use('/',express.static(path.resolve(__dirname,'../www')));
 app.route('/api/orders')
 .get(function (req, res) {
 	var status = req.query.complete;
+  console.log("you got it");
 	if (status){
 		db.orders.find({complete: true}, function(err, docs) {
       if (err) console.log(err);
@@ -60,7 +67,7 @@ app.route('/api/orders')
       });
     });
   });*/
-  res.send('Hello World!');
+
 })
 .post(function (req,res){
 	db.orders.insert(req.body, function(err, doc) {
@@ -70,8 +77,8 @@ app.route('/api/orders')
 
 
 
-app.listen(3000, function () {
-  console.log('Example app listening on port 3000!');
+app.listen(8100, function () {
+  console.log('Example app listening on port 8100!');
 });
 
 // var insertDocuments = function(db, callback) {
