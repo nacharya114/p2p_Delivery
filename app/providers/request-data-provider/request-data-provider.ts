@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Response } from '@angular/http';
+import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable'
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
@@ -36,11 +36,12 @@ export class RequestDataProvider {
       //     console.log(this.orderList);
       //     resolve({status: 'OK'});
       // });
-  let headers = { 'Content-Type': 'application/json',
-                  'Access-Control-Allow-Origin': "This.com" };
-  let options = { headers: headers };
-
-    return this.http.post(this.apiURL + "/api/orders", form)
+  let headers = new Headers({ 'Content-Type': 'application/json',
+                  'Access-Control-Allow-Origin': "http://localhost:8100" });
+  let options = new RequestOptions({ headers: headers });
+  console.log("Logs", JSON.stringify(form));
+  debugger;
+    return this.http.post(this.apiURL + "/api/orders", JSON.stringify(form),  options)
                 .toPromise()
                 .then(this.extractData)
                 .catch(this.handleError);
