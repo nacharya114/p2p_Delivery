@@ -44,9 +44,7 @@ export class TrackPagePage {
 
   goToHistoryIn(item: any) {
     let t = this.incomingList.splice(this.incomingList.indexOf(item),1)[0];
-    this.rdp.createOrder(t).then((data) => {
-      this.rdp.markOrderComplete(t);
-    })
+    this.rdp.markOrderComplete(t);
   }
 
   ionViewWillEnter(){
