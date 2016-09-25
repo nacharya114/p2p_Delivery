@@ -24,7 +24,7 @@ export class MapPagePage {
   map: any;
   mapInitialised: boolean = false;
   apiKey: any;
-  var location;
+  location: any;
 
   constructor(public navCtrl: NavController, private connectivityService: ConnectivityService) {
     this.loadMap();
@@ -145,26 +145,40 @@ export class MapPagePage {
         mapTypeId: google.maps.MapTypeId.ROADMAP
       }
 
-      map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
+      this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
 
     }, (err) => {
         console.log(err);
     });
-    addMarker();
+    this.addMarker();
 
   }
 
   addMarker(){
- 
+
+    console.log("adding marker");
+
     let marker = new google.maps.Marker({
       map: this.map,
       animation: google.maps.Animation.DROP,
       position: location
     });
- 
-    let content = "<h4>Information!</h4>";          
- 
+
+    let content = "<h4>Information!</h4>";
+
    this.addInfoWindow(marker, content);
-}
+  }
+
+  addInfoWindow(marker, content){
+
+    let infoWindow = new google.maps.InfoWindow({
+      content: content
+    });
+
+    google.maps.event.addListener(marker, 'click', () => {
+      infoWindow.open(this.map, marker);
+    });
+
+  }
 
 }
