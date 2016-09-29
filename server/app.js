@@ -8,10 +8,7 @@ var mongojs = require('mongojs');
 var db = mongojs("p2p", ['orders']);
 
 app.use(bodyParser());
-app.use(function(req,res,next){
-    next();
-    console.log(req.method,req.path,req.body);
-});
+
 
 // // Connection URL
 // var url = 'mongodb://localhost:27017/myproject';
@@ -44,23 +41,48 @@ app.use(function(req,res,next){
 app.use('/',express.static(path.resolve(__dirname,'../www')));
 app.use(bodyParser());
 app.use(function(req,res,next){
+  res.header("Access-Control-Allow-Origin", "*");
+   res.header('Access-Control-Allow-Methods', 'DELETE, PUT');
+   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
 	next();
 	console.log(req.method,req.path,req.body);
 })
 app.route('/api/orders')
 .get(function (req, res) {
 	var status = req.query.complete;
-  console.log("you got it");
+  var incoming = req.query.incoming;
+  console.log("complete is ", status);
+  console.log("incoming is ", incoming);
 	if (status){
-		db.orders.find({complete: true}, function(err, docs) {
+    if (status == "true") {
+      db.orders.find({complete: true}, function(err, docs) {
       if (err) console.log(err);
-      res.json(docs);
-    });
-	}else{
-		db.orders.find({complete: false}, function(err, docs){
+        res.json(docs);
+      });
+    } else {
+      db.orders.find({complete: false}, function(err, docs) {
       if (err) console.log(err);
-      res.json(docs);
-    });
+        res.json(docs);
+      });
+    }
+	}else if (incoming) {
+    if (incoming == 'true') {
+      db.orders.find({incoming: true}, function(err, docs){
+        if (err) console.log(err);
+        res.json(docs);
+      });
+    } else {
+      db.orders.find({incoming: false}, function(err, docs){
+        if (err) console.log(err);
+          res.json(docs);
+        });
+      }
+    } else {
+      db.orders.find(function(err, docs){
+        if (err) console.log(err);
+        res.json(docs);
+      });
+      console.log("finished send");
 	}
 /*  insertDocuments(db, function() {
     updateDocument(db, function() {
@@ -87,8 +109,8 @@ app.route('/api/orders')
 
 
 
-app.listen(3000, function () {
-  console.log('Example app listening on port 3000!');
+app.listen(8080, function () {
+  console.log('Example app listening on port 8080!');
 });
 
 // var insertDocuments = function(db, callback) {

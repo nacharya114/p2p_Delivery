@@ -18,8 +18,16 @@ export class HistoryPagePage {
 
   constructor(private navCtrl: NavController, private rdp: RequestDataProvider) {
     this.rdp.getCompletedOrders().then((data) => {
-            this.orderlist = data;
+            this.orderlist = <Array<JSON>>data;
+            console.log(this.orderlist);
         });
+  }
+
+  ionViewLoaded() {
+    this.rdp.getCompletedOrders().then((data)=> {
+      console.log(data);
+      this.orderlist = data;
+    });
   }
 
   ionViewWillEnter(){

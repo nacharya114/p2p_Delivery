@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
+import { Http, Response, Headers, RequestOptions } from '@angular/http';
+import { Observable } from 'rxjs/Observable'
 import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/toPromise';
 
 
 /*
@@ -14,40 +16,41 @@ export class RequestDataProvider {
 
   orderList: any;
   idnum: number;
+  public apiURL: string = "http://localhost:8080";
 
   constructor(private http: Http) {
-      this.orderList = [{
-          id: 0,
-          name : "Pete",
-          location: "New York, NY",
-          destination: "Chicago, IL",
-          type: "s",
-          notes: "notes",
-          complete: false,
-          description: "Lorem epsum",
-          incoming: false
-      }, {
-          id: 1,
-          name: "Joe",
-          location:"Atlanta, Georgia",
-          destination:"Athens, Georgia",
-          type:"m",
-          notes:"",
-          complete: true,
-          description: "Joe's Bag of Donuts",
-          incoming: false
-      }, {
-        id: 2,
-        name: "Mary",
-        location: "North Ave Appt",
-        destination: "711 Techwood Drive",
-        type:"s",
-        notes:"Her Rat Cap",
-        complete:false,
-        description:"Thanks Mary",
-        incoming: true
-      }];
-      let idnum = 3;
+      // this.orderList = [{
+      //     id: 0,
+      //     name : "Pete",
+      //     location: "New York, NY",
+      //     destination: "Chicago, IL",
+      //     type: "s",
+      //     notes: "notes",
+      //     complete: false,
+      //     description: "Lorem epsum",
+      //     incoming: false
+      // }, {
+      //     id: 1,
+      //     name: "Joe",
+      //     location:"Atlanta, Georgia",
+      //     destination:"Athens, Georgia",
+      //     type:"m",
+      //     notes:"",
+      //     complete: true,
+      //     description: "Joe's Bag of Donuts",
+      //     incoming: false
+      // }, {
+      //   id: 2,
+      //   name: "Mary",
+      //   location: "North Ave Appt",
+      //   destination: "711 Techwood Drive",
+      //   type:"s",
+      //   notes:"Her Rat Cap",
+      //   complete:false,
+      //   description:"Thanks Mary",
+      //   incoming: true
+      // }];
+      //let idnum = 3;
       console.log(this.orderList);
   }
 
@@ -59,64 +62,68 @@ export class RequestDataProvider {
 
   createOrder(form: JSON) {
 
-      return new Promise((resolve, reject) => {
-          form['id'] = this.idnum;
-          this.idnum++;
-          this.orderList.push(form);
-          console.log(this.orderList);
-          resolve({status: 'OK'});
-      });
+      // return new Promise((resolve, reject) => {
+      //     form['id'] = this.idnum;
+      //     this.idnum++;
+      //     this.orderList.push(form);
+      //     console.log(this.orderList);
+      //     resolve({status: 'OK'});
+      // });
+    let headers = new Headers({ 'Content-Type': 'application/json'});
+    let options = new RequestOptions({ headers: headers });
+    console.log("Logs", JSON.stringify(form));
+    return this.http.post(this.apiURL + "/api/orders", JSON.stringify(form),  options)
+                .toPromise()
+                .then(this.extractData)
+                .catch(this.handleError);
   }
 
   getAllOrders() {
-    return new Promise((resolve, reject) => {
-      resolve(this.orderList);
-    });
+     return this.http.get(this.apiURL+"/api/orders")
+                    .toPromise()
+                    .then(this.extractData)
+                    .catch(this.handleError);
   }
 
   getOrders(complete: boolean) {
       console.log(this.orderList);
-      if (!complete) {
-        console.log("here is false");
-          return new Promise((resolve, reject) => {
-              let templist: any = [];
-              for (var i = this.orderList.length - 1; i >= 0; i--) {
-                console.log(this.orderList[i]);
-                if(this.orderList[i]['complete'] == false){
-                  console.log("LOGST", this.orderList[i]);
-                  templist.push(this.orderList[i]);
-                }
-              }
-              resolve(templist);
-          });
+      if(complete == undefined) {
+      return this.http.get(this.apiURL+"/api/orders")
+                    .toPromise()
+                    .then(this.extractData)
+                    .catch(this.handleError);
+    }
+      if (complete) {
+        return this.http.get(this.apiURL+"/api/orders?complete=true")
+                    .toPromise()
+                    .then(this.extractData)
+                    .catch(this.handleError);
       } else {
-        console.log("Here is true");
-          return new Promise((resolve, reject) => {
-              let templist: any = [];
-              for (var i = this.orderList.length - 1; i >= 0; i--) {
-                if(this.orderList[i]['complete'] == true ){
-                  console.log("LOGSF", this.orderList[i]);
-                  templist.push(this.orderList[i]);
-                }
-              }
-              resolve(templist);
-          });
+        return this.http.get(this.apiURL+"/api/orders?complete=false")
+                    .toPromise()
+                    .then(this.extractData)
+                    .catch(this.handleError);
       }
   }
 
   getOutgoingOrders() {
-        return new Promise((resolve, reject) => {
-      this.getAllOrders().then(()=>{
-        let templist: any = [];
-          for (var i = this.orderList.length - 1; i >= 0; i--) {
-            if(this.orderList[i]['incoming'] == false && this.orderList[i]['complete'] == false ){
-              console.log("LOGSF", this.orderList[i]);
-              templist.push(this.orderList[i]);
-            }
-          }
-          resolve(templist);
-        });
-    })
+    //     return new Promise((resolve, reject) => {
+    //   this.getAllOrders().then(()=>{
+    //     let templist: any = [];
+    //       for (var i = this.orderList.length - 1; i >= 0; i--) {
+    //         if(this.orderList[i]['incoming'] == false && this.orderList[i]['complete'] == false ){
+    //           console.log("LOGSF", this.orderList[i]);
+    //           templist.push(this.orderList[i]);
+    //         }
+    //       }
+    //       resolve(templist);
+    //     });
+    // })
+
+   return this.http.get(this.apiURL+"/api/orders?incoming=false")
+                    .toPromise()
+                    .then(this.extractData)
+                    .catch(this.handleError);
   }
 
   getCompletedOrders() {
@@ -128,18 +135,22 @@ export class RequestDataProvider {
   }
 
   getIncomingOrders() {
-    return new Promise((resolve, reject) => {
-      this.getAllOrders().then(()=>{
-        let templist: any = [];
-          for (var i = this.orderList.length - 1; i >= 0; i--) {
-            if(this.orderList[i]['incoming'] == true && this.orderList[i]['complete'] == false){
-              console.log("LOGSF", this.orderList[i]);
-              templist.push(this.orderList[i]);
-            }
-          }
-          resolve(templist);
-        });
-    })
+    // return new Promise((resolve, reject) => {
+    //   this.getAllOrders().then(()=>{
+    //     let templist: any = [];
+    //       for (var i = this.orderList.length - 1; i >= 0; i--) {
+    //         if(this.orderList[i]['incoming'] == true && this.orderList[i]['complete'] == false){
+    //           console.log("LOGSF", this.orderList[i]);
+    //           templist.push(this.orderList[i]);
+    //         }
+    //       }
+    //       resolve(templist);
+    //     });
+    // })
+  return this.http.get(this.apiURL+"/api/orders?incoming=true")
+                    .toPromise()
+                    .then(this.extractData)
+                    .catch(this.handleError);
   }
 
   markOrderComplete(order: any) {
@@ -148,6 +159,21 @@ export class RequestDataProvider {
         this.orderList[i]["complete"] = true;
         resolve();
     });
+  }
+
+  private extractData(res: Response) {
+    console.log(res.json());
+    return res.json();
+    // let body = res.json();
+    // console.log("WHATISTHIS", body.data);
+    // return body.data || {};
+  }
+
+  private handleError(error: any) {
+    let errMsg = (error.message) ? error.message :
+    error.status ? `${error.status} - ${error.statusText}` : 'Server error';
+  console.error(errMsg); // log to console instead
+  return Promise.reject(errMsg);
   }
 
 }

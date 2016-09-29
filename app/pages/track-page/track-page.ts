@@ -56,6 +56,15 @@ export class TrackPagePage {
       });
        this.packages = "outgoing";
   }
+  ionViewLoaded() {
+    this.rdp.getOutgoingOrders().then((data)=> {
+      console.log(data);
+      this.orderlist = data;
+    });
+    this.rdp.getIncomingOrders().then((data) => {
+        this.incomingList = data;
+      });
+  }
 
   // ionViewLoaded(){
   //     if (this.orderlist == null) {
