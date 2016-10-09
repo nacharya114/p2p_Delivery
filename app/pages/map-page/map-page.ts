@@ -15,6 +15,7 @@ import { Params } from "../../providers/params/params";
 
 declare var google;
 
+
 @Component({
   templateUrl: 'build/pages/map-page/map-page.html',
 })
@@ -26,9 +27,13 @@ export class MapPagePage {
   mapInitialised: boolean = false;
   apiKey: any;
   location: any;
+  directionsDisplay : any;
+  directionsService : any;
 
   constructor(public navCtrl: NavController, private connectivityService: ConnectivityService, private params: Params) {
     this.loadMap();
+    this.directionsService = new google.maps.DirectionsService();
+    this.directionsDisplay = new google.maps.DirectionsRenderer();
   }
 
   ionViewLoaded(){
@@ -84,6 +89,7 @@ export class MapPagePage {
   }
 
   initMap() {
+
     this.mapInitialised = true;
     Geolocation.getCurrentPosition().then((position) => {
       console.log(position);
@@ -100,6 +106,7 @@ export class MapPagePage {
     }, (err) => {
         console.log(err);
     });
+
   }
 
   disableMap(){
@@ -141,21 +148,49 @@ export class MapPagePage {
       console.log(position);
       let latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
 
+      var chicago = new google.maps.LatLng(37.334818, -121.884886);
       let mapOptions = {
-        center: latLng,
+        center: chicago,
         zoom: 15,
         mapTypeId: google.maps.MapTypeId.ROADMAP
       }
 
 
       this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
-      this.addMarker(latLng);
+      //this.addMarker(latLng);
+
+
+    this.directionsDisplay.setMap(this.map);
+    this.calcRoute(this.directionsDisplay, this.map);
 
     }, (err) => {
         console.log(err);
     });
 
 
+  }
+
+  calcRoute(dd, map){
+    var start = new google.maps.LatLng(37.334818, -121.884886);
+    var end = new google.maps.LatLng(37.441883, -122.143019);
+    var request = {
+      origin: start,
+      destination: end,
+      travelMode: google.maps.TravelMode.DRIVING
+    };
+
+    this.directionsService.route(request, function(response, status) {
+      if (status == google.maps.DirectionsStatus.OK) {
+        console.log(response);
+        dd.setMap(map);
+        dd.setDirections(response);
+        //this.directionsDisplay.setMap(this.map);
+        console.log("Should show route");
+      } else {
+        alert("Directions Request from " + start.toUrlValue(6) + " to " + end.toUrlValue(6) + " failed: " + status);
+      }
+    });
+    /************** END OF ROUTE STUFF *****************/
   }
 
   addMarker(latlng ){
@@ -185,6 +220,7 @@ export class MapPagePage {
 
   }
 
+
   passLocation() {
     this.params.data = {
       "loc" : this.map.getCenter()
@@ -193,3 +229,6 @@ export class MapPagePage {
   }
 
 }
+
+}
+
