@@ -1,8 +1,9 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
-import { NavController } from 'ionic-angular';
-import { HistoryPagePage } from '../history-page/history-page';
+import { NavController, NavParams } from 'ionic-angular';
 import { Geolocation } from 'ionic-native';
 import {ConnectivityService} from '../../providers/connectivity-service/connectivity-service';
+import { OrderNewPage } from "../order-new/order-new";
+import { Params } from "../../providers/params/params";
 
 
 /*
@@ -26,7 +27,7 @@ export class MapPagePage {
   apiKey: any;
   location: any;
 
-  constructor(public navCtrl: NavController, private connectivityService: ConnectivityService) {
+  constructor(public navCtrl: NavController, private connectivityService: ConnectivityService, private params: Params) {
     this.loadMap();
   }
 
@@ -182,6 +183,13 @@ export class MapPagePage {
       infoWindow.open(this.map, marker);
     });
 
+  }
+
+  passLocation() {
+    this.params.data = {
+      "loc" : this.map.getCenter()
+    }
+    this.navCtrl.push(OrderNewPage);
   }
 
 }
