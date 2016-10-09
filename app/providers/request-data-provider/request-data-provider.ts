@@ -79,27 +79,31 @@ export class RequestDataProvider {
   }
 
   getAllOrders() {
-     return this.http.get(this.apiURL+"/api/orders")
+    let headers = new Headers({ 'Content-Type': 'application/json'});
+    let options = new RequestOptions({ headers: headers });
+     return this.http.get(this.apiURL+"/api/orders", options)
                     .toPromise()
                     .then(this.extractData)
                     .catch(this.handleError);
   }
 
   getOrders(complete: boolean) {
+    let headers = new Headers({ 'Content-Type': 'application/json'});
+    let options = new RequestOptions({ headers: headers });
       console.log(this.orderList);
       if(complete == undefined) {
-      return this.http.get(this.apiURL+"/api/orders")
+      return this.http.get(this.apiURL+"/api/orders", options)
                     .toPromise()
                     .then(this.extractData)
                     .catch(this.handleError);
     }
       if (complete) {
-        return this.http.get(this.apiURL+"/api/orders?complete=true")
+        return this.http.get(this.apiURL+"/api/orders?complete=true", options)
                     .toPromise()
                     .then(this.extractData)
                     .catch(this.handleError);
       } else {
-        return this.http.get(this.apiURL+"/api/orders?complete=false")
+        return this.http.get(this.apiURL+"/api/orders?complete=false", options)
                     .toPromise()
                     .then(this.extractData)
                     .catch(this.handleError);
@@ -119,19 +123,23 @@ export class RequestDataProvider {
     //       resolve(templist);
     //     });
     // })
+let headers = new Headers({ 'Content-Type': 'application/json'});
+    let options = new RequestOptions({ headers: headers });
 
-   return this.http.get(this.apiURL+"/api/orders?incoming=false")
+   return this.http.get(this.apiURL+"/api/orders?incoming=false", options)
                     .toPromise()
                     .then(this.extractData)
                     .catch(this.handleError);
   }
 
   getCompletedOrders() {
-      return new Promise((resolve, reject)=> {
-            this.getOrders(true).then((data) => {
-                resolve(data);
-            });
-        });
+      let headers = new Headers({ 'Content-Type': 'application/json'});
+    let options = new RequestOptions({ headers: headers });
+
+   return this.http.get(this.apiURL+"/api/orders?complete=true", options)
+                    .toPromise()
+                    .then(this.extractData)
+                    .catch(this.handleError);
   }
 
   getIncomingOrders() {

@@ -91,6 +91,7 @@ export class MapPagePage {
       let mapOptions = {
         center: latLng,
         zoom: 15,
+        disableDefaultUI: true,
         mapTypeId: google.maps.MapTypeId.ROADMAP
       }
 
@@ -168,7 +169,7 @@ export class MapPagePage {
 
     let content = "<h4>Information!</h4>";
 
-   //this.addInfoWindow(marker, content);
+   this.addInfoWindow(marker, content);
   }
 
   addInfoWindow(marker, content){

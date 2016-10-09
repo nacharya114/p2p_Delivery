@@ -18,7 +18,7 @@ export class HistoryPagePage {
 
   constructor(private navCtrl: NavController, private rdp: RequestDataProvider) {
     this.rdp.getCompletedOrders().then((data) => {
-            this.orderlist = <Array<JSON>>data;
+            this.orderlist = data;
             console.log(this.orderlist);
         });
   }

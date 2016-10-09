@@ -55,6 +55,7 @@ app.route('/api/orders')
   console.log("incoming is ", incoming);
 	if (status){
     if (status == "true") {
+      console.log("sending");
       db.orders.find({complete: true}, function(err, docs) {
       if (err) console.log(err);
         res.json(docs);
