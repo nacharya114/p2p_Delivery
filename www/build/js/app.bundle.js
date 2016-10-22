@@ -429,13 +429,19 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var ionic_angular_1 = require('ionic-angular');
+/*
+  Generated class for the SettingsPage page.
+
+  See http://ionicframework.com/docs/v2/components/#navigation for more info on
+  Ionic pages and navigation.
+*/
 var SettingsPage = (function () {
     function SettingsPage(navCtrl) {
         this.navCtrl = navCtrl;
     }
     SettingsPage = __decorate([
         core_1.Component({
-            templateUrl: 'build/pages/settings/settings.html'
+            templateUrl: 'build/pages/settings/settings.html',
         }), 
         __metadata('design:paramtypes', [ionic_angular_1.NavController])
     ], SettingsPage);
