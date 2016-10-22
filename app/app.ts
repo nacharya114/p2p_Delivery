@@ -4,6 +4,7 @@ import { StatusBar } from 'ionic-native';
 import { TabsPage } from './pages/tabs/tabs';
 import { ConnectivityService } from './providers/connectivity-service/connectivity-service';
 import { RequestDataProvider } from './providers/request-data-provider/request-data-provider';
+import { Params } from './providers/params/params';
 
 
 
@@ -25,4 +26,4 @@ export class MyApp {
   }
 }
 
-ionicBootstrap(MyApp, [ConnectivityService, RequestDataProvider]);
+ionicBootstrap(MyApp, [ConnectivityService, RequestDataProvider, Params]);

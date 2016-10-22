@@ -222,13 +222,27 @@ export class MapPagePage {
 
 
   passLocation() {
-    this.params.data = {
-      "loc" : this.map.getCenter()
-    }
-    this.navCtrl.push(OrderNewPage);
+    let geocoder = new google.maps.Geocoder();
+    let location = new google.maps.LatLng(this.map.getCenter().lat(), this.map.getCenter().lng());
+    console.log(location.lat());
+    let par = this.params;
+    let ctrl = this.navCtrl;
+    let map = this.map;
+    geocoder.geocode({'latLng': location}, function(results, status) {
+      console.log(status);
+      if(status == google.maps.GeocoderStatus.OK) {
+        console.log(results[0]);
+        par.data = {
+          "loc" : map.getCenter(),
+          "address": results[0]["formatted_address"]
+        }
+        ctrl.push(OrderNewPage);
+      }
+    });
+
   }
 
 }
 
-}
+
 

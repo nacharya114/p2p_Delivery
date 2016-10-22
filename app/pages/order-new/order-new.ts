@@ -2,6 +2,7 @@ import { Component, ViewChild, ElementRef } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { PackageTypePage } from '../package-type/package-type';
 import { RequestDataProvider } from '../../providers/request-data-provider/request-data-provider';
+import { Params } from "../../providers/params/params";
 
 /*
   Generated class for the OrderNewPage page.
@@ -17,12 +18,17 @@ export class OrderNewPage {
 
   formData: any;
 
-  constructor(private navCtrl: NavController, navPar: NavParams, private requestProvider: RequestDataProvider) {
+  constructor(private navCtrl: NavController, private params: Params, private requestProvider: RequestDataProvider) {
 
     this.formData = {};
   }
   goToPackageType(){
     this.navCtrl.push(PackageTypePage);
+  }
+
+  ionViewLoaded() {
+    this.formData.location = this.params.data["address"];
+    //console.log("Order loc: ", this.params.get("loc"));
   }
 
   Submit(){
