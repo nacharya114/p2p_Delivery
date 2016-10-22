@@ -1,4 +1,10 @@
 # p2p_Delivery
+
+<h1>HOW TO START THE APP</h1>
+<ol>
+  <li>Open 3 instances of terminal</li>
+  <li>Run these commands in each window: <i>mongod</i>, <i>node server/app.js</i>, <i>ionic serve --lab</i></li>
+</ol>
 <h1>To Do</h2>
 <h2>Client Side</h2>
 <ul>
