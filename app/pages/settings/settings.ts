@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 
 @Component({
-  templateUrl: 'build/pages/about/about.html'
+  templateUrl: 'build/pages/settings/settings.html'
 })
 export class SettingsPage {
   constructor(public navCtrl: NavController) {
