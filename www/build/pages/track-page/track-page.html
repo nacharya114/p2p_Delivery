@@ -35,7 +35,21 @@
 
   <div [ngSwitch]="packages">
     <ion-list *ngSwitchWhen="'incoming'" ngSelected="selected">
+      <ion-item *ngFor='let item of incomingList'>
+        <ion-card>
+          <ion-card-header>{{item.description}}</ion-card-header>
+          <ion-card-content>
+            <ul>
+              <li>Name: {{item.name}}</li>
+              <li>Destination: {{item.destination}}</li>
+              <li>Notes: {{item.notes}}</li>
+            </ul>
 
+            <button full dark (click)="goToHistoryIn(item)">Received</button>
+
+          </ion-card-content>
+        </ion-card>
+      </ion-item>
     </ion-list>
 
     <ion-list *ngSwitchWhen="'outgoing'">

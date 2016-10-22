@@ -10,11 +10,11 @@
     <ion-title>Order</ion-title>
   </ion-navbar>-->
 
-  <ion-view title="test" class="frame_look_feel"> 
-     
+  <ion-view title="test" class="frame_look_feel">
+
     <ion-title>Map</ion-title>
-    
-    
+
+
   </ion-view>
 
 </ion-header>
@@ -23,7 +23,9 @@
   <button id="center" round fab-bottom (click)="getCurrentLocation()">
   	<ion-icon name="arrow-dropright-circle"></ion-icon>
   </button>
-  <div class="map-container">
-     <div #map id="map"></div>
+    <button id="test" round fab (click)="passLocation()"><ion-icon name="arrow-dropright-circle"></ion-icon></button>
+    <div class="map-container">
+     <div #map id="map">
+     </div>
   </div>
 </ion-content>

@@ -15,25 +15,33 @@
 </ion-header>
 
 <ion-content padding>
-  <button dark full (click)="goToOrderNew()">Order a New Package</button>
+  <button dark full (click)="goToOrderNew()">Send a New Package</button>
   <ion-list>
-    <ion-item *ngFor='let order of orderlist'>
+    <ion-item>
       <ion-card>
-        <ion-card-header>{{order.description}}</ion-card-header>
+        <ion-card-header>Used Textbooks</ion-card-header>
         <ion-card-content>
           <ul>
-            <li>Name: {{order.name}}</li>
-            <li>Destination: {{order.destination}}</li>
-            <li>Notes: {{order.notes}}</li>
+            <li>Name: John</li>
+            <li>Destination: 55 North Ave</li>
+            <li>Notes: I hated this class</li>
           </ul>
+          <button full dark>Accept</button>
         </ion-card-content>
       </ion-card>
     </ion-item>
+
+
     <ion-item>
       <ion-card>
-        <ion-card-header>Does this work?</ion-card-header>
+        <ion-card-header>Toolset</ion-card-header>
         <ion-card-content>
-          just checking
+          <ul>
+            <li>Name: Patrick</li>
+            <li>Destination: 516 5th Ave</li>
+            <li>Notes: N/A</li>
+          </ul>
+          <button full dark>Accept</button>
         </ion-card-content>
       </ion-card>
     </ion-item>
