@@ -1,0 +1,58 @@
+<!--
+  Generated template for the TrackPagePage page.
+
+  See http://ionicframework.com/docs/v2/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-content padding>
+
+</ion-content>
+
+<ion-header class="ion-header">
+
+
+
+  <ion-view title="test" class="frame_look_feel">
+
+    <ion-title>Track</ion-title>
+
+  </ion-view>
+
+</ion-header>
+
+<ion-content padding>
+
+  <div padding>
+    <ion-segment [(ngModel)]="packages">
+      <ion-segment-button value="incoming">
+        Incoming
+      </ion-segment-button>
+      <ion-segment-button value="outgoing">
+        Outgoing
+      </ion-segment-button>
+    </ion-segment>
+  </div>
+
+  <div [ngSwitch]="packages">
+    <ion-list *ngSwitchWhen="'incoming'" ngSelected="selected">
+
+    </ion-list>
+
+    <ion-list *ngSwitchWhen="'outgoing'">
+      <ion-item *ngFor='let order of orderlist'>
+        <ion-card>
+          <ion-card-header>{{order.description}}</ion-card-header>
+          <ion-card-content>
+            <ul>
+              <li>Name: {{order.name}}</li>
+              <li>Destination: {{order.destination}}</li>
+              <li>Notes: {{order.notes}}</li>
+            </ul>
+            <button full dark (click)="goToHistory(order)">Delivered</button>
+          </ion-card-content>
+        </ion-card>
+      </ion-item>
+    </ion-list>
+  </div>
+</ion-content>
+
