@@ -58,16 +58,18 @@ var request_data_provider_1 = require('../../providers/request-data-provider/req
 */
 var HistoryPagePage = (function () {
     function HistoryPagePage(navCtrl, rdp) {
+        var _this = this;
         this.navCtrl = navCtrl;
         this.rdp = rdp;
-        this.packages = "";
-    }
-    HistoryPagePage.prototype.ngOnInit = function () {
-        var _this = this;
-        this.rdp.getOrders(true).then(function (data) {
+        this.rdp.getCompletedOrders().then(function (data) {
             _this.orderlist = data;
         });
-        this.packages = "incoming";
+    }
+    HistoryPagePage.prototype.ionViewWillEnter = function () {
+        var _this = this;
+        this.rdp.getCompletedOrders().then(function (data) {
+            _this.orderlist = data;
+        });
     };
     HistoryPagePage = __decorate([
         core_1.Component({
@@ -152,7 +154,7 @@ var MapPagePage = (function () {
                 zoom: 15,
                 mapTypeId: google.maps.MapTypeId.ROADMAP
             };
-            var map = new google.maps.Map(_this.mapElement.nativeElement, mapOptions);
+            _this.map = new google.maps.Map(_this.mapElement.nativeElement, mapOptions);
         }, function (err) {
             console.log(err);
         });
@@ -195,10 +197,11 @@ var MapPagePage = (function () {
                 zoom: 15,
                 mapTypeId: google.maps.MapTypeId.ROADMAP
             };
-            var map = new google.maps.Map(_this.mapElement.nativeElement, mapOptions);
+            _this.map = new google.maps.Map(_this.mapElement.nativeElement, mapOptions);
         }, function (err) {
             console.log(err);
         });
+        //this.addMarker();
     };
     __decorate([
         core_1.ViewChild('map'), 
@@ -239,13 +242,7 @@ var OrderNewPage = (function () {
     function OrderNewPage(navCtrl, navPar, requestProvider) {
         this.navCtrl = navCtrl;
         this.requestProvider = requestProvider;
-        this.formData = {
-            name: "",
-            location: "",
-            destination: "",
-            type: "",
-            notes: ""
-        };
+        this.formData = {};
     }
     OrderNewPage.prototype.goToPackageType = function () {
         this.navCtrl.push(package_type_1.PackageTypePage);
@@ -254,7 +251,8 @@ var OrderNewPage = (function () {
         this.navCtrl.pop();
         console.log("hi");
         //console.log(this.formData);
-        this.formData.complete = false;
+        this.formData['complete'] = false;
+        this.formData['incoming'] = false;
         this.requestProvider.createOrder(this.formData);
         //TODO: save information and somehow send to tracking
     };
@@ -397,9 +395,16 @@ var request_data_provider_1 = require('../../providers/request-data-provider/req
 */
 var TrackPagePage = (function () {
     function TrackPagePage(navCtrl, rdp) {
+        var _this = this;
         this.navCtrl = navCtrl;
         this.rdp = rdp;
         this.packages = "";
+        this.rdp.getOutgoingOrders().then(function (data) {
+            _this.orderlist = data;
+        });
+        this.rdp.getIncomingOrders().then(function (data) {
+            _this.incomingList = data;
+        });
         // this.formData = {
         //       name: "",
         //       location: "",
@@ -409,14 +414,21 @@ var TrackPagePage = (function () {
         //     };
     }
     TrackPagePage.prototype.goToHistory = function (order) {
-        this.orderlist.splice(this.orderlist.indexOf(order), 1);
+        this.rdp.markOrderComplete(this.orderlist.splice(this.orderlist.indexOf(order), 1)[0]);
     };
-    TrackPagePage.prototype.ngOnInit = function () {
+    TrackPagePage.prototype.goToHistoryIn = function (item) {
+        var t = this.incomingList.splice(this.incomingList.indexOf(item), 1)[0];
+        this.rdp.markOrderComplete(t);
+    };
+    TrackPagePage.prototype.ionViewWillEnter = function () {
         var _this = this;
-        this.rdp.getOrders(true).then(function (data) {
+        this.rdp.getOutgoingOrders().then(function (data) {
             _this.orderlist = data;
         });
-        this.packages = "incoming";
+        this.rdp.getIncomingOrders().then(function (data) {
+            _this.incomingList = data;
+        });
+        this.packages = "outgoing";
     };
     TrackPagePage = __decorate([
         core_1.Component({
@@ -503,7 +515,8 @@ var RequestDataProvider = (function () {
                 type: "s",
                 notes: "notes",
                 complete: false,
-                description: "Lorem epsum"
+                description: "Lorem epsum",
+                incoming: false
             }, {
                 id: 1,
                 name: "Joe",
@@ -512,9 +525,20 @@ var RequestDataProvider = (function () {
                 type: "m",
                 notes: "",
                 complete: true,
-                description: "Joe's Bag of Donuts"
+                description: "Joe's Bag of Donuts",
+                incoming: false
+            }, {
+                id: 2,
+                name: "Mary",
+                location: "North Ave Appt",
+                destination: "711 Techwood Drive",
+                type: "s",
+                notes: "Her Rat Cap",
+                complete: false,
+                description: "Thanks Mary",
+                incoming: true
             }];
-        var idnum = 2;
+        var idnum = 3;
         console.log(this.orderList);
     }
     RequestDataProvider.prototype.getOrder = function () {
@@ -527,20 +551,28 @@ var RequestDataProvider = (function () {
         return new Promise(function (resolve, reject) {
             form['id'] = _this.idnum;
             _this.idnum++;
-            form['delivered'] = false;
             _this.orderList.push(form);
             console.log(_this.orderList);
             resolve({ status: 'OK' });
+        });
+    };
+    RequestDataProvider.prototype.getAllOrders = function () {
+        var _this = this;
+        return new Promise(function (resolve, reject) {
+            resolve(_this.orderList);
         });
     };
     RequestDataProvider.prototype.getOrders = function (complete) {
         var _this = this;
         console.log(this.orderList);
         if (!complete) {
+            console.log("here is false");
             return new Promise(function (resolve, reject) {
-                var templist;
+                var templist = [];
                 for (var i = _this.orderList.length - 1; i >= 0; i--) {
-                    if (_this.orderList[i]['delivered'] == false) {
+                    console.log(_this.orderList[i]);
+                    if (_this.orderList[i]['complete'] == false) {
+                        console.log("LOGST", _this.orderList[i]);
                         templist.push(_this.orderList[i]);
                     }
                 }
@@ -548,10 +580,12 @@ var RequestDataProvider = (function () {
             });
         }
         else {
+            console.log("Here is true");
             return new Promise(function (resolve, reject) {
-                var templist;
+                var templist = [];
                 for (var i = _this.orderList.length - 1; i >= 0; i--) {
-                    if (_this.orderList[i]['delivered'] == true) {
+                    if (_this.orderList[i]['complete'] == true) {
+                        console.log("LOGSF", _this.orderList[i]);
                         templist.push(_this.orderList[i]);
                     }
                 }
@@ -559,11 +593,18 @@ var RequestDataProvider = (function () {
             });
         }
     };
-    RequestDataProvider.prototype.getTrackingOrders = function () {
+    RequestDataProvider.prototype.getOutgoingOrders = function () {
         var _this = this;
         return new Promise(function (resolve, reject) {
-            _this.getOrders(false).then(function (data) {
-                resolve(data);
+            _this.getAllOrders().then(function () {
+                var templist = [];
+                for (var i = _this.orderList.length - 1; i >= 0; i--) {
+                    if (_this.orderList[i]['incoming'] == false && _this.orderList[i]['complete'] == false) {
+                        console.log("LOGSF", _this.orderList[i]);
+                        templist.push(_this.orderList[i]);
+                    }
+                }
+                resolve(templist);
             });
         });
     };
@@ -575,11 +616,26 @@ var RequestDataProvider = (function () {
             });
         });
     };
+    RequestDataProvider.prototype.getIncomingOrders = function () {
+        var _this = this;
+        return new Promise(function (resolve, reject) {
+            _this.getAllOrders().then(function () {
+                var templist = [];
+                for (var i = _this.orderList.length - 1; i >= 0; i--) {
+                    if (_this.orderList[i]['incoming'] == true && _this.orderList[i]['complete'] == false) {
+                        console.log("LOGSF", _this.orderList[i]);
+                        templist.push(_this.orderList[i]);
+                    }
+                }
+                resolve(templist);
+            });
+        });
+    };
     RequestDataProvider.prototype.markOrderComplete = function (order) {
         var _this = this;
         return new Promise(function (resolve, reject) {
             var i = _this.orderList.indexOf(order);
-            _this.orderList[i]["delivered"] = true;
+            _this.orderList[i]["complete"] = true;
             resolve();
         });
     };
