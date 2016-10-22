@@ -3,6 +3,7 @@ import { OrderPagePage } from '../order-page/order-page';
 import { MapPagePage } from '../map-page/map-page';
 import { HistoryPagePage } from '../history-page/history-page';
 import {TrackPagePage} from '../track-page/track-page';
+import {SettingsPage} from '../settings/settings';
 
 @Component({
   templateUrl: 'build/pages/tabs/tabs.html'
