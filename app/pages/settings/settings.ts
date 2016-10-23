@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
+import { PaymentPage } from '../payment/payment';
+import { UserPage } from '../user/user';
+
 
 /*
   Generated class for the SettingsPage page.
@@ -14,6 +17,14 @@ export class SettingsPage {
 
   constructor(private navCtrl: NavController) {
 
+  }
+  goToPaymentNew(){
+    this.navCtrl.push(PaymentPage);
+    console.log("works");
+  }
+  goToUserNew(){
+    this.navCtrl.push(UserPage);
+    console.log("works");
   }
 
 }
