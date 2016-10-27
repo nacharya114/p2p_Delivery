@@ -882,6 +882,9 @@ var RequestDataProvider = (function () {
             resolve();
         });
     };
+    // getUsername(){
+    //   return 
+    // }
     RequestDataProvider.prototype.extractData = function (res) {
         console.log(res.json());
         return res.json();

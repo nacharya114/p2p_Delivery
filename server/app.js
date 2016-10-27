@@ -5,38 +5,20 @@ var bodyParser = require('body-parser');
 // var MongoClient = require('mongodb').MongoClient
 //   , assert = require('assert');
 var mongojs = require('mongojs');
+var mongoose = require('mongoose');
 var db = mongojs("p2p", ['orders']);
 
 app.use(bodyParser());
 
 
-// // Connection URL
-// var url = 'mongodb://localhost:27017/myproject';
-// var database;
-// var orders;
-// // Use connect method to connect to the Server
-// MongoClient.connect(url, function(err, db) {
-// 	if (err){
-// 		console.log(err);
-// 	}
-//   assert.equal(null, err);
-//   database = db;
-//   orders = db.collection("Orders");
-//   console.log("Connected correctly to server");
-// /*  db.createCollection( "contacts",
-//    {
-//       validator: { $or:
-//          [
-//             { phone: { $type: "string" } },
-//             { email: { $regex: /@mongodb\.com$/ } },
-//             { status: { $in: [ "Unknown", "Incomplete" ] } }
-//          ]
-//       }
-//    }
-// );*/
-//  /* db.collection.insert( { name: "Harold", status: "Incomplete" } )*/
+mongoose.connect('mongodb://localhost:27017/test');
+var dbMongoose = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function() {
+  console.log("Mongoose Connected to DB!");
+});
 
-// });
+
 
 app.use('/',express.static(path.resolve(__dirname,'../www')));
 app.use(bodyParser());
@@ -107,6 +89,18 @@ app.route('/api/orders')
         }
     });
 });
+
+/*app.route("api/users")
+.get(function (req, res) {
+  // body...
+  var usernameSchema = new Schema({username: String}, {collection: 'usernames_passwords'});
+  var userModel = mongoose.model('Username',usernameSchema);
+  res.json(userModel);
+
+});*/
+/*.post(function(req, res) {
+
+});*/
 
 
 
