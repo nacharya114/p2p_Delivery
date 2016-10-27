@@ -36,6 +36,7 @@ var MyApp = (function () {
 }());
 exports.MyApp = MyApp;
 ionic_angular_1.ionicBootstrap(MyApp, [connectivity_service_1.ConnectivityService, request_data_provider_1.RequestDataProvider, params_1.Params]);
+
 },{"./pages/tabs/tabs":9,"./providers/connectivity-service/connectivity-service":12,"./providers/params/params":13,"./providers/request-data-provider/request-data-provider":14,"@angular/core":162,"ionic-angular":476,"ionic-native":503}],2:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -88,6 +89,7 @@ var HistoryPagePage = (function () {
     return HistoryPagePage;
 }());
 exports.HistoryPagePage = HistoryPagePage;
+
 },{"../../providers/request-data-provider/request-data-provider":14,"@angular/core":162,"ionic-angular":476}],3:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -292,6 +294,7 @@ var MapPagePage = (function () {
     return MapPagePage;
 }());
 exports.MapPagePage = MapPagePage;
+
 },{"../../providers/connectivity-service/connectivity-service":12,"../../providers/params/params":13,"../order-new/order-new":4,"@angular/core":162,"ionic-angular":476,"ionic-native":503}],4:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -346,6 +349,7 @@ var OrderNewPage = (function () {
     return OrderNewPage;
 }());
 exports.OrderNewPage = OrderNewPage;
+
 },{"../../providers/params/params":13,"../../providers/request-data-provider/request-data-provider":14,"../package-type/package-type":6,"@angular/core":162,"ionic-angular":476}],5:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -384,6 +388,7 @@ var OrderPagePage = (function () {
     return OrderPagePage;
 }());
 exports.OrderPagePage = OrderPagePage;
+
 },{"../order-new/order-new":4,"@angular/core":162,"ionic-angular":476}],6:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -416,6 +421,7 @@ var PackageTypePage = (function () {
     return PackageTypePage;
 }());
 exports.PackageTypePage = PackageTypePage;
+
 },{"@angular/core":162,"ionic-angular":476}],7:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -448,6 +454,7 @@ var PaymentPage = (function () {
     return PaymentPage;
 }());
 exports.PaymentPage = PaymentPage;
+
 },{"@angular/core":162,"ionic-angular":476}],8:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -490,6 +497,7 @@ var SettingsPage = (function () {
     return SettingsPage;
 }());
 exports.SettingsPage = SettingsPage;
+
 },{"../payment/payment":7,"../user/user":11,"@angular/core":162,"ionic-angular":476}],9:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -526,6 +534,7 @@ var TabsPage = (function () {
     return TabsPage;
 }());
 exports.TabsPage = TabsPage;
+
 },{"../history-page/history-page":2,"../map-page/map-page":3,"../order-page/order-page":5,"../settings/settings":8,"../track-page/track-page":10,"@angular/core":162}],10:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -602,6 +611,7 @@ var TrackPagePage = (function () {
     return TrackPagePage;
 }());
 exports.TrackPagePage = TrackPagePage;
+
 },{"../../providers/request-data-provider/request-data-provider":14,"@angular/core":162,"ionic-angular":476}],11:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -634,6 +644,7 @@ var UserPage = (function () {
     return UserPage;
 }());
 exports.UserPage = UserPage;
+
 },{"@angular/core":162,"ionic-angular":476}],12:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -677,6 +688,7 @@ var ConnectivityService = (function () {
     return ConnectivityService;
 }());
 exports.ConnectivityService = ConnectivityService;
+
 },{"@angular/core":162,"ionic-angular":476,"ionic-native":503,"rxjs/add/operator/map":589}],13:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -717,6 +729,7 @@ var Params = (function () {
     return Params;
 }());
 exports.Params = Params;
+
 },{"@angular/core":162,"@angular/http":289,"rxjs/add/operator/map":589}],14:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -902,6 +915,7 @@ var RequestDataProvider = (function () {
     return RequestDataProvider;
 }());
 exports.RequestDataProvider = RequestDataProvider;
+
 },{"@angular/core":162,"@angular/http":289,"rxjs/add/operator/map":589,"rxjs/add/operator/toPromise":590}],15:[function(require,module,exports){
 /**
  * @license
