@@ -567,9 +567,14 @@ var user_1 = require('../user/user');
   Ionic pages and navigation.
 */
 var SettingsPage = (function () {
+    //formData: any;
     function SettingsPage(navCtrl) {
         this.navCtrl = navCtrl;
+        //this.formData = {};
     }
+    /*ionViewLoaded(){
+  
+    }*/
     SettingsPage.prototype.goToPaymentNew = function () {
         this.navCtrl.push(payment_1.PaymentPage);
         console.log("works");
@@ -979,6 +984,10 @@ var RequestDataProvider = (function () {
             resolve();
         });
     };
+    /*  getUsername(){
+        return this.http.get(this.apiURL+"api/users?incoming=true")
+                         .toPromise().then(this.extractData).catch(this.handleError);
+      }*/
     RequestDataProvider.prototype.extractData = function (res) {
         console.log(res.json());
         return res.json();

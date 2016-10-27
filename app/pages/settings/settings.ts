@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { PaymentPage } from '../payment/payment';
 import { UserPage } from '../user/user';
+import { RequestDataProvider } from '../../providers/request-data-provider/request-data-provider';
+import { Params } from "../../providers/params/params";
 
 
 /*
@@ -15,9 +17,14 @@ import { UserPage } from '../user/user';
 })
 export class SettingsPage {
 
-  constructor(private navCtrl: NavController) {
+  //formData: any;
 
+  constructor(private navCtrl: NavController) { //, private params: Params, private requestProvider: RequestDataProvider
+     //this.formData = {};
   }
+  /*ionViewLoaded(){
+
+  }*/
   goToPaymentNew(){
     this.navCtrl.push(PaymentPage);
     console.log("works");
@@ -26,5 +33,6 @@ export class SettingsPage {
     this.navCtrl.push(UserPage);
     console.log("works");
   }
+
 
 }
