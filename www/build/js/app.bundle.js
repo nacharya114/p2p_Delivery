@@ -50,34 +50,25 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var ionic_angular_1 = require('ionic-angular');
 var params_1 = require("../../providers/params/params");
-/*
-  Generated class for the AutocompletePage page.
-
-  See http://ionicframework.com/docs/v2/components/#navigation for more info on
-  Ionic pages and navigation.
-*/
 var AutocompletePage = (function () {
     function AutocompletePage(navCtrl, params) {
         this.navCtrl = navCtrl;
         this.params = params;
         this.showList = false;
         this.result = "";
+        this.service = new google.maps.places.AutocompleteService();
     }
     AutocompletePage.prototype.initializeItems = function () {
-        this.items = [
-            'Amsterdam',
-            'Bogota',
-            'Buenos Aires',
-            'Dhaka'
-        ];
+        this.items = [];
     };
     AutocompletePage.prototype.pickDestination = function (item) {
-        this.result = item;
+        this.result = item.description;
         this.showList = false;
         this.params.data.destination = this.result;
         this.navCtrl.pop();
     };
     AutocompletePage.prototype.getItems = function (ev) {
+        var _this = this;
         // Show the results
         this.showList = true;
         // Reset items back to all of the items
@@ -86,8 +77,15 @@ var AutocompletePage = (function () {
         var val = ev.target.value;
         // if the value is an empty string don't filter the items
         if (val && val.trim() != '') {
-            this.items = this.items.filter(function (item) {
-                return (item.toLowerCase().indexOf(val.toLowerCase()) > -1);
+            var request = {
+                input: val
+            };
+            this.service.getPlacePredictions(request, function (results, status) {
+                console.log("status: ", status);
+                console.log("Results: ", results);
+                if (status == google.maps.places.PlacesServiceStatus.OK) {
+                    _this.items = results;
+                }
             });
         }
     };
