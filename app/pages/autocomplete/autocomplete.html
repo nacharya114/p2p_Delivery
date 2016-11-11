@@ -17,7 +17,7 @@
   <ion-searchbar (ionInput)="getItems($event)" (ionCancel)="onCancel($event)" [(ngModel)]="result" [showCancelButton]="true"></ion-searchbar>
   <ion-list *ngIf="showList">
     <ion-item *ngFor="let item of items">
-      <p (click)="pickDestination(item)">{{ item }}</p>
+      <p (click)="pickDestination(item)">{{ item.description }}</p>
     </ion-item>
   </ion-list>
 
