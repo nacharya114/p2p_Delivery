@@ -284,25 +284,33 @@ var MapPagePage = (function () {
             _this.map = new google.maps.Map(_this.mapElement.nativeElement, mapOptions);
             //this.addMarker(latLng);
             _this.directionsDisplay.setMap(_this.map);
-            _this.calcRoute(_this.directionsDisplay, _this.map);
+            //this.calcRoute(this.directionsDisplay, this.map);
         }, function (err) {
             console.log(err);
         });
     };
-    MapPagePage.prototype.calcRoute = function (dd, map) {
-        var start = new google.maps.LatLng(37.334818, -121.884886);
+    MapPagePage.prototype.calcRoute = function (dd, map, start) {
+        // var start = new google.maps.LatLng(37.334818, -121.884886);
         var end = new google.maps.LatLng(37.441883, -122.143019);
         var request = {
             origin: start,
             destination: end,
             travelMode: google.maps.TravelMode.DRIVING
         };
+        var geocoder = new google.maps.Geocoder();
+        var ctrl = this.navCtrl;
+        geocoder.geocode({ 'latLng': end }, function (results, status) {
+            console.log(status);
+            if (status == google.maps.GeocoderStatus.OK) {
+                var latlngDestination = results[0].geometry.location;
+            }
+        });
         this.directionsService.route(request, function (response, status) {
             if (status == google.maps.DirectionsStatus.OK) {
                 console.log(response);
                 dd.setMap(map);
                 dd.setDirections(response);
-                //this.directionsDisplay.setMap(this.map);
+                this.directionsDisplay.setMap(this.map);
                 console.log("Should show route");
             }
             else {
@@ -333,6 +341,8 @@ var MapPagePage = (function () {
     MapPagePage.prototype.passLocation = function () {
         var geocoder = new google.maps.Geocoder();
         var location = new google.maps.LatLng(this.map.getCenter().lat(), this.map.getCenter().lng());
+        this.addMarker(location);
+        this.calcRoute(this.directionsDisplay, this.map, location);
         console.log(location.lat());
         var par = this.params;
         var ctrl = this.navCtrl;
@@ -560,6 +570,8 @@ var core_1 = require('@angular/core');
 var ionic_angular_1 = require('ionic-angular');
 var payment_1 = require('../payment/payment');
 var user_1 = require('../user/user');
+var request_data_provider_1 = require('../../providers/request-data-provider/request-data-provider');
+var params_1 = require("../../providers/params/params");
 /*
   Generated class for the SettingsPage page.
 
@@ -568,8 +580,10 @@ var user_1 = require('../user/user');
 */
 var SettingsPage = (function () {
     //formData: any;
-    function SettingsPage(navCtrl) {
+    function SettingsPage(navCtrl, params, requestProvider) {
         this.navCtrl = navCtrl;
+        this.params = params;
+        this.requestProvider = requestProvider;
         //this.formData = {};
     }
     /*ionViewLoaded(){
@@ -587,12 +601,12 @@ var SettingsPage = (function () {
         core_1.Component({
             templateUrl: 'build/pages/settings/settings.html',
         }), 
-        __metadata('design:paramtypes', [ionic_angular_1.NavController])
+        __metadata('design:paramtypes', [ionic_angular_1.NavController, params_1.Params, request_data_provider_1.RequestDataProvider])
     ], SettingsPage);
     return SettingsPage;
 }());
 exports.SettingsPage = SettingsPage;
-},{"../payment/payment":8,"../user/user":12,"@angular/core":163,"ionic-angular":477}],10:[function(require,module,exports){
+},{"../../providers/params/params":14,"../../providers/request-data-provider/request-data-provider":15,"../payment/payment":8,"../user/user":12,"@angular/core":163,"ionic-angular":477}],10:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -717,6 +731,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var ionic_angular_1 = require('ionic-angular');
+var request_data_provider_1 = require('../../providers/request-data-provider/request-data-provider');
+var params_1 = require("../../providers/params/params");
 /*
   Generated class for the UserPage page.
 
@@ -724,19 +740,28 @@ var ionic_angular_1 = require('ionic-angular');
   Ionic pages and navigation.
 */
 var UserPage = (function () {
-    function UserPage(navCtrl) {
+    function UserPage(navCtrl, params, requestProvider) {
         this.navCtrl = navCtrl;
+        this.params = params;
+        this.requestProvider = requestProvider;
+        this.info = {};
     }
+    UserPage.prototype.ionViewLoaded = function () {
+        // this.info.username = "Penis";
+        // this.requestProvider.getUsername().then((data)=>{
+        //   this.info = data;
+        // });
+    };
     UserPage = __decorate([
         core_1.Component({
             templateUrl: 'build/pages/user/user.html',
         }), 
-        __metadata('design:paramtypes', [ionic_angular_1.NavController])
+        __metadata('design:paramtypes', [ionic_angular_1.NavController, params_1.Params, request_data_provider_1.RequestDataProvider])
     ], UserPage);
     return UserPage;
 }());
 exports.UserPage = UserPage;
-},{"@angular/core":163,"ionic-angular":477}],13:[function(require,module,exports){
+},{"../../providers/params/params":14,"../../providers/request-data-provider/request-data-provider":15,"@angular/core":163,"ionic-angular":477}],13:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -984,10 +1009,10 @@ var RequestDataProvider = (function () {
             resolve();
         });
     };
-    /*  getUsername(){
-        return this.http.get(this.apiURL+"api/users?incoming=true")
-                         .toPromise().then(this.extractData).catch(this.handleError);
-      }*/
+    RequestDataProvider.prototype.getUsername = function () {
+        return this.http.get(this.apiURL + "/api/users")
+            .toPromise().then(this.extractData).catch(this.handleError);
+    };
     RequestDataProvider.prototype.extractData = function (res) {
         console.log(res.json());
         return res.json();

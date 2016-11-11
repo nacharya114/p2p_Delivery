@@ -13,12 +13,19 @@ app.use(bodyParser());
 
 mongoose.connect('mongodb://localhost:27017/test');
 var dbMongoose = mongoose.connection;
-db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', function() {
+dbMongoose.on('error', console.error.bind(console, 'connection error:'));
+dbMongoose.once('open', function() {
   console.log("Mongoose Connected to DB!");
 });
 
+var usernameSchema = new mongoose.Schema({username: String}, {collection: 'usernames_passwords'});
+var userModel = mongoose.model('Username',usernameSchema);
 
+// ************ USE BELOW WHEN HAVE USERNAME COLLECTION *****************
+
+// usernameSchema.methods.getUsername = function() {
+//   return this.usermodel('username').find({ type: this.type });
+// };
 
 app.use('/',express.static(path.resolve(__dirname,'../www')));
 app.use(bodyParser());
@@ -90,14 +97,15 @@ app.route('/api/orders')
     });
 });
 
-/*app.route("api/users")
-.get(function (req, res) {
-  // body...
-  var usernameSchema = new Schema({username: String}, {collection: 'usernames_passwords'});
-  var userModel = mongoose.model('Username',usernameSchema);
-  res.json(userModel);
+// app.route("api/users")
+// .get(function (req, res) {
+//   // body...
 
-});*/
+//   userModel.getUsername(function(err, username) {
+//       res.json(username);
+//   });
+  
+// });
 /*.post(function(req, res) {
 
 });*/

@@ -19,7 +19,7 @@ export class SettingsPage {
 
   //formData: any;
 
-  constructor(private navCtrl: NavController) { //, private params: Params, private requestProvider: RequestDataProvider
+  constructor(private navCtrl: NavController, private params: Params, private requestProvider: RequestDataProvider) { //
      //this.formData = {};
   }
   /*ionViewLoaded(){
@@ -34,5 +34,5 @@ export class SettingsPage {
     console.log("works");
   }
 
-
+  
 }
