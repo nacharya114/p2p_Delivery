@@ -21,4 +21,8 @@ export class LoginPage {
   	this.navCtrl.push(TabsPage);
   }
 
+  goToDriverSide() {
+  	//TODO
+  }
+
 }
