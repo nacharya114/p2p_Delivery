@@ -34,7 +34,8 @@
 
     <ion-item>
       <ion-label stacked>Destination Address</ion-label>
-      <ion-input type="text" [(ngModel)]="formData.destination"></ion-input>
+      <ion-input id="destin" (focus)="getFocus()" type="text" [(ngModel)]="formData.destination"></ion-input>
+
     </ion-item>
 
   <ion-item>
