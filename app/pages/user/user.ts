@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
-
+import { RequestDataProvider } from '../../providers/request-data-provider/request-data-provider';
+import { Params } from "../../providers/params/params";
 /*
   Generated class for the UserPage page.
 
@@ -12,8 +13,17 @@ import { NavController } from 'ionic-angular';
 })
 export class UserPage {
 
-  constructor(private navCtrl: NavController) {
+	info: any;
 
+  constructor(private navCtrl: NavController,private params: Params, private requestProvider: RequestDataProvider) {
+  	this.info = {};
+  }
+
+  ionViewLoaded() {
+  	// this.info.username = "Penis";
+    // this.requestProvider.getUsername().then((data)=>{
+    //   this.info = data;
+    // });
   }
 
 }

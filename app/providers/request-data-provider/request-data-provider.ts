@@ -170,10 +170,10 @@ let headers = new Headers({ 'Content-Type': 'application/json'});
   }
 
 
-/*  getUsername(){
-    return this.http.get(this.apiURL+"api/users?incoming=true")
+  getUsername(){
+    return this.http.get(this.apiURL+"/api/users")
                      .toPromise().then(this.extractData).catch(this.handleError);
-  }*/
+  }
 
   private extractData(res: Response) {
     console.log(res.json());

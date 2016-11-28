@@ -161,7 +161,7 @@ export class MapPagePage {
 
 
     this.directionsDisplay.setMap(this.map);
-    this.calcRoute(this.directionsDisplay, this.map);
+    //this.calcRoute(this.directionsDisplay, this.map);
 
     }, (err) => {
         console.log(err);
@@ -170,8 +170,8 @@ export class MapPagePage {
 
   }
 
-  calcRoute(dd, map){
-    var start = new google.maps.LatLng(37.334818, -121.884886);
+  calcRoute(dd, map, start){
+    // var start = new google.maps.LatLng(37.334818, -121.884886);
     var end = new google.maps.LatLng(37.441883, -122.143019);
     var request = {
       origin: start,
@@ -179,17 +179,27 @@ export class MapPagePage {
       travelMode: google.maps.TravelMode.DRIVING
     };
 
+    let geocoder = new google.maps.Geocoder();
+    let ctrl = this.navCtrl;
+    geocoder.geocode({'latLng': end}, function(results, status) {
+      console.log(status);
+      if(status == google.maps.GeocoderStatus.OK) {
+        let latlngDestination = results[0].geometry.location;
+      }
+    });
+
     this.directionsService.route(request, function(response, status) {
       if (status == google.maps.DirectionsStatus.OK) {
         console.log(response);
         dd.setMap(map);
         dd.setDirections(response);
-        //this.directionsDisplay.setMap(this.map);
+        this.directionsDisplay.setMap(this.map);
         console.log("Should show route");
       } else {
         alert("Directions Request from " + start.toUrlValue(6) + " to " + end.toUrlValue(6) + " failed: " + status);
       }
     });
+
     /************** END OF ROUTE STUFF *****************/
   }
 
@@ -224,6 +234,8 @@ export class MapPagePage {
   passLocation() {
     let geocoder = new google.maps.Geocoder();
     let location = new google.maps.LatLng(this.map.getCenter().lat(), this.map.getCenter().lng());
+    this.addMarker(location);
+    this.calcRoute(this.directionsDisplay,this.map,location);
     console.log(location.lat());
     let par = this.params;
     let ctrl = this.navCtrl;
