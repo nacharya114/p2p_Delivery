@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
+import { TabsPage } from '../login/login';
 
 /*
   Generated class for the LoginPage page.
@@ -14,6 +15,10 @@ export class LoginPage {
 
   constructor(private navCtrl: NavController) {
 
+  }
+
+  goToUserSide(){
+  	this.navCtrl.push(TabsPage);
   }
 
 }
