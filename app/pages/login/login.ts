@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
-import { TabsPage } from '../login/login';
+import { TabsPage } from '../tabs/tabs';
 
 /*
   Generated class for the LoginPage page.
