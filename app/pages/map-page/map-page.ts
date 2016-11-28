@@ -1,7 +1,7 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { Geolocation } from 'ionic-native';
-import {ConnectivityService} from '../../providers/connectivity-service/connectivity-service';
+import { ConnectivityService } from '../../providers/connectivity-service/connectivity-service';
 import { OrderNewPage } from "../order-new/order-new";
 import { Params } from "../../providers/params/params";
 
@@ -150,7 +150,7 @@ export class MapPagePage {
 
       var chicago = new google.maps.LatLng(37.334818, -121.884886);
       let mapOptions = {
-        center: chicago,
+        center: latLng,
         zoom: 15,
         mapTypeId: google.maps.MapTypeId.ROADMAP
       }
@@ -203,7 +203,7 @@ export class MapPagePage {
     /************** END OF ROUTE STUFF *****************/
   }
 
-  addMarker(latlng ){
+  addMarker(latlng){
 
     console.log("adding marker");
 

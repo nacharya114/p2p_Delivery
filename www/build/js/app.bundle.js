@@ -275,7 +275,7 @@ var MapPagePage = (function () {
             var latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
             var chicago = new google.maps.LatLng(37.334818, -121.884886);
             var mapOptions = {
-                center: chicago,
+                center: latLng,
                 zoom: 15,
                 mapTypeId: google.maps.MapTypeId.ROADMAP
             };
