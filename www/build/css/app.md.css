@@ -9512,3 +9512,11 @@ body {
 .settings-page .ion-header {
   background-color: #FFA474;
   height: 40px; }
+
+.autocomplete .ion-header {
+  background-color: #FFA474;
+  height: 40px; }
+
+.login-page .ion-header {
+  background-color: #FFA474;
+  height: 40px; }
